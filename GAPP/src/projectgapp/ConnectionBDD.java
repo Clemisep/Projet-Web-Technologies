@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-	public class Gapp {
+	public class ConnectionBDD {
 
 		public static void main(String[] args) {
 			
