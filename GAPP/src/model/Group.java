@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class Group {
@@ -19,7 +20,7 @@ public class Group {
 		return null;
 	}
 	
-	public void setAppResp(User user) throws BadArgumentException {
+	public void setAppResp(User user) throws BadArgumentException, SQLException {
 		if(user.getRole() == Role.APP_RESP) {
 			// TODO
 		} else {
