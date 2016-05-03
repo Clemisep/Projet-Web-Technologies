@@ -3,7 +3,12 @@ package model;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Group {
+public class Group extends Table {
+	
+	public Group(long idGroup) {
+		super("group", idGroup);
+	}
+	
 	public List<User> getUsers() {
 		return null; // TODO
 	}
@@ -16,15 +21,11 @@ public class Group {
 		// TODO
 	}
 	
-	public User getAppResp() {
-		return null;
+	public User.Responsible getResponsible() throws SQLException {
+		return User.getResponsible(getAttrLong("id_responsible"));
 	}
 	
-	public void setAppResp(User user) throws BadArgumentException, SQLException {
-		if(user.getRole() == Role.APP_RESP) {
-			// TODO
-		} else {
-			throw new BadArgumentException("" + user + " is not an AppResp");
-		}
+	public void setResponsible(User.Responsible responsible) throws BadArgumentException, SQLException {
+		setAttrLong("id_responsible", responsible.getId());
 	}
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 05 Avril 2016 à 09:57
+-- Généré le :  Mar 03 Mai 2016 à 09:10
 -- Version du serveur :  5.7.9
 -- Version de PHP :  5.6.16
 
@@ -23,32 +23,42 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `absence`
+-- Structure de la table `admin`
 --
 
-DROP TABLE IF EXISTS `absence`;
-CREATE TABLE IF NOT EXISTS `absence` (
-  `idAbsence` int(11) NOT NULL AUTO_INCREMENT,
-  `idStudent` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `description` varchar(100) NOT NULL,
-  `idProf` int(11) NOT NULL,
-  PRIMARY KEY (`idAbsence`)
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_admin`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `assoc_group_user`
+-- Structure de la table `assoc_skill_skill_group`
 --
 
-DROP TABLE IF EXISTS `assoc_group_user`;
-CREATE TABLE IF NOT EXISTS `assoc_group_user` (
-  `idAssocGroupUser` int(11) NOT NULL AUTO_INCREMENT,
-  `idGroupApp` int(11) NOT NULL,
-  `idUser` int(11) NOT NULL,
-  PRIMARY KEY (`idAssocGroupUser`)
+DROP TABLE IF EXISTS `assoc_skill_skill_group`;
+CREATE TABLE IF NOT EXISTS `assoc_skill_skill_group` (
+  `idSkillGroup` int(11) NOT NULL,
+  `idSkill` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `course`
+--
+
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE IF NOT EXISTS `course` (
+  `id_course` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(15) NOT NULL COMMENT 'lesson, appTutor or app',
+  `date` datetime NOT NULL,
+  `duration` time NOT NULL,
+  `id_group_app` int(11) NOT NULL,
+  PRIMARY KEY (`id_course`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Cours assigné à un groupe d''APP et présences/absences.';
 
 -- --------------------------------------------------------
 
@@ -58,23 +68,51 @@ CREATE TABLE IF NOT EXISTS `assoc_group_user` (
 
 DROP TABLE IF EXISTS `group_app`;
 CREATE TABLE IF NOT EXISTS `group_app` (
-  `idGroupApp` int(11) NOT NULL AUTO_INCREMENT,
+  `id_group_app` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  `idAppResp` int(11) NOT NULL,
-  PRIMARY KEY (`idGroupApp`)
+  `id_responsible` int(11) NOT NULL,
+  PRIMARY KEY (`id_group_app`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `note`
+-- Structure de la table `group_remark`
 --
 
-DROP TABLE IF EXISTS `note`;
-CREATE TABLE IF NOT EXISTS `note` (
-  `idNote` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(100) NOT NULL,
-  PRIMARY KEY (`idNote`)
+DROP TABLE IF EXISTS `group_remark`;
+CREATE TABLE IF NOT EXISTS `group_remark` (
+  `id_group_remark` int(11) NOT NULL AUTO_INCREMENT,
+  `remark` text NOT NULL,
+  `date` datetime NOT NULL,
+  `id_group_app` int(11) NOT NULL,
+  PRIMARY KEY (`id_group_remark`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `presence`
+--
+
+DROP TABLE IF EXISTS `presence`;
+CREATE TABLE IF NOT EXISTS `presence` (
+  `id_course` int(11) NOT NULL,
+  `id_student` int(11) NOT NULL,
+  `is_present` tinyint(1) NOT NULL,
+  `remark` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `responsible`
+--
+
+DROP TABLE IF EXISTS `responsible`;
+CREATE TABLE IF NOT EXISTS `responsible` (
+  `id_responsible` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_responsible`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -85,10 +123,9 @@ CREATE TABLE IF NOT EXISTS `note` (
 
 DROP TABLE IF EXISTS `skill`;
 CREATE TABLE IF NOT EXISTS `skill` (
-  `idSkill` int(11) NOT NULL AUTO_INCREMENT,
+  `id_skill` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(100) NOT NULL,
-  `idSkillGroup` int(11) NOT NULL,
-  PRIMARY KEY (`idSkill`)
+  PRIMARY KEY (`id_skill`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -99,9 +136,38 @@ CREATE TABLE IF NOT EXISTS `skill` (
 
 DROP TABLE IF EXISTS `skill_group`;
 CREATE TABLE IF NOT EXISTS `skill_group` (
-  `idSkillGroup` int(11) NOT NULL AUTO_INCREMENT,
+  `id_skill_group` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(100) NOT NULL,
-  PRIMARY KEY (`idSkillGroup`)
+  PRIMARY KEY (`id_skill_group`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE IF NOT EXISTS `student` (
+  `id_student` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `id_group_app` int(11) NOT NULL,
+  PRIMARY KEY (`id_student`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `student_remark`
+--
+
+DROP TABLE IF EXISTS `student_remark`;
+CREATE TABLE IF NOT EXISTS `student_remark` (
+  `id_student_remark` int(11) NOT NULL AUTO_INCREMENT,
+  `remark` text NOT NULL,
+  `date` datetime NOT NULL,
+  `id_student` int(11) NOT NULL,
+  PRIMARY KEY (`id_student_remark`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -112,10 +178,22 @@ CREATE TABLE IF NOT EXISTS `skill_group` (
 
 DROP TABLE IF EXISTS `sub_skill`;
 CREATE TABLE IF NOT EXISTS `sub_skill` (
-  `idSubSkill` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sub_skill` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(100) NOT NULL,
-  `idSkill` int(11) NOT NULL,
-  PRIMARY KEY (`idSubSkill`)
+  `id_skill` int(11) NOT NULL,
+  PRIMARY KEY (`id_sub_skill`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tutor`
+--
+
+DROP TABLE IF EXISTS `tutor`;
+CREATE TABLE IF NOT EXISTS `tutor` (
+  `id_tutor` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_tutor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -126,28 +204,31 @@ CREATE TABLE IF NOT EXISTS `sub_skill` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `idUser` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(30) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `birthDate` date NOT NULL,
-  `studentId` varchar(5) NOT NULL,
-  `mark` int(11) NOT NULL,
-  `role` varchar(10) NOT NULL,
-  PRIMARY KEY (`idUser`),
-  UNIQUE KEY `studentId` (`studentId`),
-  UNIQUE KEY `studentId_2` (`studentId`)
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `id_admin` int(11) NOT NULL COMMENT 'Meaningfull only if admin',
+  `is_responsible` tinyint(1) NOT NULL DEFAULT '0',
+  `id_responsible` int(11) NOT NULL COMMENT 'Meaningfull only if responsible',
+  `is_tutor` tinyint(1) NOT NULL DEFAULT '0',
+  `id_tutor` int(11) NOT NULL COMMENT 'Meaningfull only if tutor',
+  `is_student` tinyint(1) NOT NULL DEFAULT '0',
+  `id_student` int(11) NOT NULL COMMENT 'Meaningfull only if student',
+  PRIMARY KEY (`id_user`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`idUser`, `firstName`, `lastName`, `birthDate`, `studentId`, `mark`, `role`) VALUES
-(1, 'Prenom1', 'Nom1', '2016-04-01', '1', 3, ''),
-(2, 'Prenom2', 'Nom2', '2016-04-29', '2', 6, ''),
-(3, 'prenom', 'nom', '2001-01-01', '001', 0, ''),
-(4, 'prenom', 'nom', '1970-01-01', '0000', 0, 'ADMIN'),
-(5, 'prenom', 'nom', '1970-01-01', '0001', 0, 'ADMIN');
+INSERT INTO `user` (`id_user`, `firstName`, `lastName`, `birthDate`, `is_admin`, `id_admin`, `is_responsible`, `id_responsible`, `is_tutor`, `id_tutor`, `is_student`, `id_student`) VALUES
+(1, 'Prenom1', 'Nom1', '2016-04-01', 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 'Prenom2', 'Nom2', '2016-04-29', 0, 0, 0, 0, 0, 0, 0, 0),
+(3, 'prenom', 'nom', '2001-01-01', 0, 0, 0, 0, 0, 0, 0, 0),
+(4, 'prenom', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'prenom', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

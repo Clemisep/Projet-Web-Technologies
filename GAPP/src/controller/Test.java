@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Role;
 import model.User;
 
 /**
@@ -46,7 +45,7 @@ public class Test extends HttpServlet {
 //				System.out.println();
 //			}
 			
-			User.addUser("prenom", "nom", new Date(0), Role.ADMIN, "0001");
+			User.addUser("prenom", "nom", new Date(0));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

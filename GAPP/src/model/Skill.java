@@ -1,11 +1,12 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.List;
 
-public class Skill {
+public class Skill extends Table {
 	
-	Skill() {
-		// TODO
+	public Skill(long idSkill) {
+		super("skill", idSkill);
 	}
 	
 	public List<SubSkill> getSubSkills() {
@@ -16,11 +17,11 @@ public class Skill {
 		return null; // TODO
 	}
 	
-	public String getDescription() {
-		return ""; // TODO
+	public String getDescription() throws SQLException {
+		return getAttrString("description");
 	}
 	
-	public void setDescription(String description) {
-		// TODO
+	public void setDescription(String description) throws SQLException {
+		setAttrString("description", description);
 	}
 }
