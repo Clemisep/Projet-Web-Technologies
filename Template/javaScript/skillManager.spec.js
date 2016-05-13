@@ -7,7 +7,7 @@
 
     function skillManagerController() {
         /*jshint validthis:true*/
-			var vm = this;
+		var vm = this;
 			
 			/*variables*/
 			vm.show = false;
