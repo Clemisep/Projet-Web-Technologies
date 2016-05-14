@@ -37,11 +37,11 @@
     <script src="javaScript/app.module.js"></script>
     <!-- Controllers -->
     <script src="javaScript/include.js"></script>
-    <script src="javaScript/skillManager.spec.js"></script>
-    <script src="javaScript/getStudent.spec.js"></script>
+    <!--<script src="javaScript/skillManager.spec.js"></script>-->
+    <!--<script src="javaScript/getStudent.spec.js"></script>-->
     <!-- Factories -->
-    <script src="javaScript/getStudent.factory.spec.js"></script>
-    
+    <!--<script src="javaScript/getStudent.factory.spec.js"></script>-->
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -65,8 +65,6 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-
-
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
@@ -90,7 +88,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" ng-click="incCtrl.redirect('profile')" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" ng-click="incCtrl.redirect('views/profile')" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="#" class="btn btn-default btn-flat">Sign out</a>
@@ -154,20 +152,20 @@
 
                         <ul class="treeview-menu">
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('skill_manager')"> <i class="fa fa-circle-o"></i> Famille de compétences</a>
+                                <a href="#" ng-click="incCtrl.redirect('skill/skill_manager')"> <i class="fa fa-circle-o"></i> Famille de compétences</a>
                             </li>
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('student_skill_manager')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
+                                <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" ng-click="incCtrl.redirect('calendar')">
+                        <a href="#" ng-click="incCtrl.redirect('calendar/calendar')">
                             <span>Calendrier</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" ng-click="incCtrl.redirect('hyperplanning')">
+                        <a href="#" ng-click="incCtrl.redirect('calendar/hyperplanning')">
                             <span>Hyperplanning</span>
                         </a>
                     </li>
@@ -179,12 +177,12 @@
 
         <div class="content-wrapper">
             <section class="content">
-                
+
                 <!-- Your Page Content Here -->
                 <div ng-include="incCtrl.template">
 
                 </div>
-                
+
             </section>
         </div>
 
@@ -192,9 +190,9 @@
             <div class="pull-right hidden-xs">
                 Groupe B
             </div>
-            <strong>Copyright &copy; 2016 <a href="#" ng-click="incCtrl.redirect('student')">ISEPGAPP</a>.</strong> Tous
-            droits réservés.
+            <strong>Copyright &copy; 2016 <a href="#" ng-click="incCtrl.redirect('views/student')">ISEPGAPP</a>.</strong>            Tous droits réservés.
         </footer>
-    </div>    
+    </div>
 </body>
+
 </html>

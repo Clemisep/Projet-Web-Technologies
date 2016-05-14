@@ -2,12 +2,10 @@
     'use strict';
 
     angular
-        .module('app')
-        .controller('includeController', includeController);
+        .module('app', [])
+        .controller('include', include);
 
-    includeController.$inject = ['$window'];
-
-    function includeController($window) {
+    function include() {
         /*jshint validthis:true*/
         var vm = this;
 
