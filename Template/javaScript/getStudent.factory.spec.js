@@ -21,7 +21,7 @@
                 return response.data;
             }
             function getStudentFail() {
-                logger.error('Fail to get student...');
+                logger.error('Failed to get student...');
             }
         }
     }

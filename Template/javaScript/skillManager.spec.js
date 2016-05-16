@@ -5,10 +5,6 @@
         .module('app', [])
         .controller('skillManager', skillManager);
 
-    function skillManager() {
-        /*jshint validthis:true*/
-        var vm = this;
-
-    }
+    function skillManager() {}
 
 })();
