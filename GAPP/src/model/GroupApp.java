@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.text.GapContent;
+
 import model.Table;
 import model.User;
 import model.Utils;
@@ -34,5 +37,15 @@ extends Table {
             users.add(User.getStudent((long)resultSet.getLong(1)));
         }
         return users;
+    }
+    
+    public static List<GroupApp> getGroups() throws SQLException {
+    	LinkedList<GroupApp> groups = new LinkedList<>();
+        PreparedStatement p = Utils.prepareStatement((String)"SELECT id_group_app FROM group_app");
+        ResultSet resultSet = p.executeQuery();
+        while (resultSet.next()) {
+            groups.add(new GroupApp((long)resultSet.getLong(1)));
+        }
+        return groups;
     }
 }

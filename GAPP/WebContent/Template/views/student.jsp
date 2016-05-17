@@ -6,13 +6,7 @@
 <body>
     <h1>Élèves</h1>
 
-    <!--<div ng-controller="getStudent as getSCtrl">
-        <button>Fetch data from server</button>
-        <div ng-repeat="student in getSCtrl.data.students">
-            {{ getSCtrl.student.firstName }} {{ getSCtrl.student.lastName }}
-        </div>
-    </div>-->
-    
+        
     <table><thead><tr>Nom</tr><tr>Prénom</tr></thead>
     	<tbody>
     <%

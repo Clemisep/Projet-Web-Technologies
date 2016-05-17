@@ -1,3 +1,5 @@
+<%@ page import="model.*" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -40,6 +42,33 @@
                                 </tr>
                             </tfoot>
                         </table>
+                        
+                        
+                                <%
+									for(GroupApp group : GroupApp.getGroups()) {
+										%>
+										Groupe
+                        <table>
+                        	<thead><tr>
+                        		<th>Nom</th>
+                        		<th>Prénom</th>
+                        	</tr></thead>
+                        	<tbody>
+                        	<% for(User.Student student : group.getStudents()) {
+                        		User user = student.getUser();
+                        		%>
+                        		<tr>
+                        			<td><%= user.getLastName() %></td>
+                        			<td><%= user.getFirstName() %></td>
+                        		</tr>
+                        		
+                        		<% } %>
+                        	</tbody>
+                        </table>
+                        
+										<%
+									}
+								%>
                     </div>
                 </div>
             </div>

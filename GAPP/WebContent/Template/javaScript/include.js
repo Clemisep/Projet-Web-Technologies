@@ -12,7 +12,7 @@
         vm.redirect = redirect;
 
         function redirect(path) {
-            vm.template = 'views/' + path + '.html';
+            vm.template = 'views/' + path + '.jsp';
             return vm.template;
         }
     }

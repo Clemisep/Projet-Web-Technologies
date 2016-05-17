@@ -22,6 +22,7 @@ extends HttpServlet {
         try {
             User user = User.addUser((String)"prenom2", (String)"nom", (Date)new Date(0));
             user.becomeStudent("46512");
+            
         }
         catch (SQLException e) {
             e.printStackTrace();
