@@ -9,6 +9,8 @@
         /*jshint validthis:true*/
         var vm = this;
 
+        vm.template = 'views/student.jsp';
+        
         vm.redirect = redirect;
 
         function redirect(path) {
