@@ -18,41 +18,16 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Compétences: activate to sort column descending">Nom Prénom</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Niveau demandé: activate to sort column ascending">Groupe</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                </tr>
-                                <tr role="row" class="even">
-                                    <td class="sorting_1"></td>
-                                    <td> </td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th rowspan="1" colspan="1">Nom Prenom</th>
-                                    <th rowspan="1" colspan="1">Groupe</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        
                         
                                 <%
 									for(GroupApp group : GroupApp.getGroups()) {
 										%>
 										Groupe
-                        <table>
-                        	<thead><tr>
+                        <table class="table table-bordered table-hover dataTable">
+                        	<thead>
                         		<th>Nom</th>
                         		<th>Pr�nom</th>
-                        	</tr></thead>
+                        	</thead>
                         	<tbody>
                         	<% for(User.Student student : group.getStudents()) {
                         		User user = student.getUser();

@@ -5,23 +5,43 @@
 
 <body>
     <h1>Élèves</h1>
-
+<div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
         
-    <table><thead><tr>Nom</tr><tr>Prénom</tr></thead>
+    <table class="table table-bordered table-hover dataTable">
+    	<thead>
+    		<th>Numéro élève</th>
+    		<th>Nom</th>
+    		<th>Prénom</th>
+    	</thead>
     	<tbody>
     <%
 	String param = "";
 	List<User.Student> students = User.findStudents(param);
-	for(int i=0 ; i<students.size() ; ) {
+	for(int i=0 ; i<students.size() ; i++) {
 		User user = students.get(i).getUser();%>
     		<tr>
+    			<td><%= user.getId() %></td>
     			<td><%= user.getLastName() %></td>
     			<td><%= user.getFirstName() %></td>
     		</tr>
     		<% } %>
     	</tbody>
     </table>
-	
+	</div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 </body>
 
