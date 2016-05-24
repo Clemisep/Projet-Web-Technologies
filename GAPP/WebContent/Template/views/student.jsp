@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-sm-12">
         
-    <table class="table table-bordered table-hover dataTable">
+    <table id="table1" class="mytable filterable">
     	<thead>
     		<th>Numéro élève</th>
     		<th>Nom</th>
@@ -37,6 +37,12 @@
     		<% } %>
     	</tbody>
     </table>
+    <script language="javascript" type="text/javascript">
+		//<![CDATA[
+			var tf = new TF('table1');
+			tf.AddGrid();
+		//]]>
+		</script>
 	</div>
                 </div>
             </div>
