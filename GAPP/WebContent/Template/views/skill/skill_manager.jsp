@@ -21,7 +21,6 @@
 						<label>Type de groupe : </label>
 						<input type="text" name="skillInput" placeholder="TECHNOLOGIE WEB" class="form-control input-sm" ng-model="groupT">
 						<br><br>
-						<p>{{ groupT }}</p>
 						<%! String groupType; %>
 						<% groupType=request.getParameter("skillInput");%>
 						
