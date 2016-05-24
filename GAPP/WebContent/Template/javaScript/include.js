@@ -9,11 +9,8 @@
         /*jshint validthis:true*/
         var vm = this;
 
-<<<<<<< HEAD
-=======
         vm.template = 'views/student.jsp';
         
->>>>>>> branch 'Rbranch' of https://github.com/Clemisep/Projet-Web-Technologies
         vm.redirect = redirect;
 
         function redirect(path) {
