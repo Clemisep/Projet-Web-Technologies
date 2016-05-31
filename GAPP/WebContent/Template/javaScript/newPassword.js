@@ -1,42 +1,29 @@
-(function(){
+(function() {
 	'use strict';
 	
 	angular
-		.module('app', [])
+		.module('app')
 		.controller('newPassword', newPassword);
 	
-	function newPassword (){
+	newPassword.$inject = ['comparePasswordFactory'];
+	
+	function newPassword (comparePasswordFactory){
 		/*jshint validthis:true*/
 		var vm = this;
-		
-		
+	
 		vm.password = '';
 		vm.password2 = '';
-		vm.compare = false;
-		vm.textCompare = '';
+		vm.text = '';
 		
-		vm.comparePassword = comparePassword;
-		vm.displayCompare = displayCompare;
+		vm.activate = activate;
 		
-		function comparePassword(){
-			if(vm.password == vm.password2){
-				vm.compare = true;
-			}else{
-				vm.compare = false;
-			}
-			
-			return vm.compare;
+		activate(vm.password, vm.password2);
+		
+		function activate(password1, password2){
+			vm.text = comparePasswordFactory.compare(password1, password2);
+			return vm.text;
 		}
 		
-		function displayCompare(){
-			if(vm.compare == true){
-				vm.textCompare = 'Les mots de passe correspondent';
-			}else{
-				vm.textCompare = 'Les mots de passe correspondent';
-			}
-			
-			return vm.textCompare;
-		}
 	}
 	
 })();

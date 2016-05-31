@@ -60,16 +60,17 @@
              
 
              
-              <div class="form-group" ng-controller="newPassword as np">
+              <div class="form-group" ng-controller="newPassword as npCtrl">
                 <label>mot de passe</label>
 
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <input type="password" class="form-control" placeholder="Mot de passe"id="password" ng-model="password" required>
-                  <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="password2" required>
-                {{ np.textCompare }}
+                  <input type="text" class="form-control" placeholder="Mot de passe"id="password" ng-model="npCtrl.password" required>
+                  <input type="text" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="npCtrl.password2" required>
+                 <span>TEXTE : {{ npCtrl.text }}</span>
+                 
                 </div>
                
               </div>
