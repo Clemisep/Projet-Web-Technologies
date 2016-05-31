@@ -31,8 +31,11 @@ implements Serializable {
     }
 
     public String getAttrString(String attrName) throws SQLException {
-        ResultSet resultSet = this.getSelect(attrName);
-        return resultSet.getString(1);
+    	String attr;
+        try (ResultSet resultSet = this.getSelect(attrName)) {
+        	attr = resultSet.getString(1);
+        }
+		return attr;
     }
 
     public void setAttrString(String attrName, String value) throws SQLException {

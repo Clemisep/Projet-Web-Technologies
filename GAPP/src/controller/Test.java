@@ -20,7 +20,7 @@ extends HttpServlet {
         PrintWriter writer = response.getWriter();
         writer.append("Served at: ").append(request.getContextPath());
         try {
-            User user = User.addUser((String)"prenom2", (String)"nom", (Date)new Date(0));
+            User user = User.addUser((String)"prenom2", (String)"nom","", (Date)new Date(0),"");
             user.becomeStudent("46512");
             
         }

@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.text.GapContent;
-
 import model.Table;
 import model.User;
 import model.Utils;
@@ -46,6 +44,8 @@ extends Table {
         while (resultSet.next()) {
             groups.add(new GroupApp((long)resultSet.getLong(1)));
         }
+        resultSet.close();
+        p.close();
         return groups;
     }
 }

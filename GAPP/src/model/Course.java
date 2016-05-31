@@ -29,6 +29,7 @@ implements Serializable {
         p.setLong(4, groupApp.getId());
         p.executeUpdate();
         long key = Utils.getKey((PreparedStatement)p);
+        p.close();
         return new Course(key);
     }
 }

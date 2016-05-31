@@ -23,7 +23,9 @@ extends Table {
         p.setLong(1, kindOfApp.getId());
         p.setString(2, name);
         p.executeUpdate();
-        return new SkillGroup(Utils.getKey((PreparedStatement)p));
+        long key = Utils.getKey((PreparedStatement)p);
+        p.close();
+		return new SkillGroup(key);
     }
 
     public List<Skill> getSkills() throws SQLException {

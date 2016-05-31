@@ -21,6 +21,7 @@ public class Presence {
         p.setString(5, remark);
         p.executeUpdate();
         long key = Utils.getKey((PreparedStatement)p);
+        p.close();
         return new Presence(key);
     }
 
