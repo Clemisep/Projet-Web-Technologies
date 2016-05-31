@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 31 Mai 2016 à 08:22
--- Version du serveur :  5.7.11
--- Version de PHP :  5.6.19
+-- Généré le :  Mar 31 Mai 2016 à 10:05
+-- Version du serveur :  5.7.9
+-- Version de PHP :  5.6.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,19 +26,24 @@ SET time_zone = "+00:00";
 -- Structure de la table `admin`
 --
 
-CREATE TABLE `admin` (
-  `id_admin` int(11) NOT NULL
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_admin`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `assoc_skill_skill_group`
+-- Structure de la table `assoc_kind_of_app_skill_group`
 --
 
-CREATE TABLE `assoc_skill_skill_group` (
-  `idSkillGroup` int(11) NOT NULL,
-  `idSkill` int(11) NOT NULL
+DROP TABLE IF EXISTS `assoc_kind_of_app_skill_group`;
+CREATE TABLE IF NOT EXISTS `assoc_kind_of_app_skill_group` (
+  `id_assoc` int(11) NOT NULL,
+  `id_kind_of_app` int(11) NOT NULL,
+  `id_skill_group` int(11) NOT NULL,
+  PRIMARY KEY (`id_assoc`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -47,13 +52,15 @@ CREATE TABLE `assoc_skill_skill_group` (
 -- Structure de la table `course`
 --
 
-CREATE TABLE `course` (
-  `id_course` int(11) NOT NULL,
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE IF NOT EXISTS `course` (
+  `id_course` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(15) NOT NULL COMMENT 'lesson, appTutor or app',
   `date` datetime NOT NULL,
   `duration` time NOT NULL,
-  `id_group_app` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Cours assign? ? un groupe d''APP et pr?sences/absences.';
+  `id_group_app` int(11) NOT NULL,
+  PRIMARY KEY (`id_course`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Cours assigné à un groupe d''APP et présences/absences.';
 
 -- --------------------------------------------------------
 
@@ -61,12 +68,14 @@ CREATE TABLE `course` (
 -- Structure de la table `group_app`
 --
 
-CREATE TABLE `group_app` (
-  `id_group_app` int(11) NOT NULL,
+DROP TABLE IF EXISTS `group_app`;
+CREATE TABLE IF NOT EXISTS `group_app` (
+  `id_group_app` int(11) NOT NULL AUTO_INCREMENT,
   `id_kind_of_app` int(11) NOT NULL,
   `id_tutor` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_group_app`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `group_app`
@@ -81,11 +90,13 @@ INSERT INTO `group_app` (`id_group_app`, `id_kind_of_app`, `id_tutor`, `name`) V
 -- Structure de la table `group_remark`
 --
 
-CREATE TABLE `group_remark` (
-  `id_group_remark` int(11) NOT NULL,
+DROP TABLE IF EXISTS `group_remark`;
+CREATE TABLE IF NOT EXISTS `group_remark` (
+  `id_group_remark` int(11) NOT NULL AUTO_INCREMENT,
   `remark` text NOT NULL,
   `date` datetime NOT NULL,
-  `id_group_app` int(11) NOT NULL
+  `id_group_app` int(11) NOT NULL,
+  PRIMARY KEY (`id_group_remark`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -94,11 +105,13 @@ CREATE TABLE `group_remark` (
 -- Structure de la table `kind_of_app`
 --
 
-CREATE TABLE `kind_of_app` (
-  `id_kind_of_app` int(11) NOT NULL,
+DROP TABLE IF EXISTS `kind_of_app`;
+CREATE TABLE IF NOT EXISTS `kind_of_app` (
+  `id_kind_of_app` int(11) NOT NULL AUTO_INCREMENT,
   `id_responsible` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  PRIMARY KEY (`id_kind_of_app`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -107,7 +120,8 @@ CREATE TABLE `kind_of_app` (
 -- Structure de la table `presence`
 --
 
-CREATE TABLE `presence` (
+DROP TABLE IF EXISTS `presence`;
+CREATE TABLE IF NOT EXISTS `presence` (
   `id_course` int(11) NOT NULL,
   `id_student` int(11) NOT NULL,
   `is_present` tinyint(1) NOT NULL,
@@ -120,8 +134,10 @@ CREATE TABLE `presence` (
 -- Structure de la table `responsible`
 --
 
-CREATE TABLE `responsible` (
-  `id_responsible` int(11) NOT NULL
+DROP TABLE IF EXISTS `responsible`;
+CREATE TABLE IF NOT EXISTS `responsible` (
+  `id_responsible` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_responsible`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -130,10 +146,12 @@ CREATE TABLE `responsible` (
 -- Structure de la table `skill`
 --
 
-CREATE TABLE `skill` (
-  `id_skill` int(11) NOT NULL,
+DROP TABLE IF EXISTS `skill`;
+CREATE TABLE IF NOT EXISTS `skill` (
+  `id_skill` int(11) NOT NULL AUTO_INCREMENT,
   `id_skill_group` int(11) NOT NULL,
-  `description` varchar(100) NOT NULL
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_skill`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -142,10 +160,11 @@ CREATE TABLE `skill` (
 -- Structure de la table `skill_group`
 --
 
-CREATE TABLE `skill_group` (
-  `id_skill_group` int(11) NOT NULL,
-  `id_kind_of_app` int(11) NOT NULL,
-  `description` varchar(100) NOT NULL
+DROP TABLE IF EXISTS `skill_group`;
+CREATE TABLE IF NOT EXISTS `skill_group` (
+  `id_skill_group` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_skill_group`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -154,13 +173,15 @@ CREATE TABLE `skill_group` (
 -- Structure de la table `skill_instance`
 --
 
-CREATE TABLE `skill_instance` (
+DROP TABLE IF EXISTS `skill_instance`;
+CREATE TABLE IF NOT EXISTS `skill_instance` (
   `id_skill_instance` int(11) NOT NULL,
   `id_skill` int(11) NOT NULL,
   `id_student` int(11) NOT NULL,
   `level` int(11) NOT NULL,
   `tutor_comment` text NOT NULL,
-  `student_comment` text NOT NULL
+  `student_comment` text NOT NULL,
+  PRIMARY KEY (`id_skill_instance`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -169,12 +190,14 @@ CREATE TABLE `skill_instance` (
 -- Structure de la table `student`
 --
 
-CREATE TABLE `student` (
-  `id_student` int(11) NOT NULL,
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE IF NOT EXISTS `student` (
+  `id_student` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
   `id_group_app` int(11) DEFAULT NULL,
-  `promo` year(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `promo` year(4) NOT NULL,
+  PRIMARY KEY (`id_student`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `student`
@@ -190,11 +213,13 @@ INSERT INTO `student` (`id_student`, `student_id`, `id_group_app`, `promo`) VALU
 -- Structure de la table `student_remark`
 --
 
-CREATE TABLE `student_remark` (
-  `id_student_remark` int(11) NOT NULL,
+DROP TABLE IF EXISTS `student_remark`;
+CREATE TABLE IF NOT EXISTS `student_remark` (
+  `id_student_remark` int(11) NOT NULL AUTO_INCREMENT,
   `remark` text NOT NULL,
   `date` datetime NOT NULL,
-  `id_student` int(11) NOT NULL
+  `id_student` int(11) NOT NULL,
+  PRIMARY KEY (`id_student_remark`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -203,8 +228,10 @@ CREATE TABLE `student_remark` (
 -- Structure de la table `tutor`
 --
 
-CREATE TABLE `tutor` (
-  `id_tutor` int(11) NOT NULL
+DROP TABLE IF EXISTS `tutor`;
+CREATE TABLE IF NOT EXISTS `tutor` (
+  `id_tutor` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_tutor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -213,163 +240,34 @@ CREATE TABLE `tutor` (
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
-  `id_user` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(30) NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `birth_date` date NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
-  `id_admin` int(11) DEFAULT '0'COMMENT
-) ;
+  `id_admin` int(11) DEFAULT '0' COMMENT 'Meaningfull only if admin',
+  `is_responsible` tinyint(1) NOT NULL DEFAULT '0',
+  `id_responsible` int(11) DEFAULT '0' COMMENT 'Meaningfull only if responsible',
+  `is_tutor` tinyint(1) NOT NULL DEFAULT '0',
+  `id_tutor` int(11) DEFAULT '0' COMMENT 'Meaningfull only if tutor',
+  `is_student` tinyint(1) NOT NULL DEFAULT '0',
+  `id_student` int(11) NOT NULL DEFAULT '0' COMMENT 'Meaningfull only if student',
+  `password` text NOT NULL,
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `pseudo` (`pseudo`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id_user`, `pseudo`, `first_name`, `last_name`, `birth_date`, `is_admin`, `id_admin`, `is_responsible`, `id_responsible`, `is_tutor`, `id_tutor`, `is_student`, `id_student`, `password`, `id_picture`) VALUES
-(17, 'mohamed', 'mohamed', 'sellami', '1970-01-01', 0, 0, 0, 0, 0, 0, 0, 0, 'mohamedsellami', '2.jpeg');
+INSERT INTO `user` (`id_user`, `pseudo`, `first_name`, `last_name`, `birth_date`, `is_admin`, `id_admin`, `is_responsible`, `id_responsible`, `is_tutor`, `id_tutor`, `is_student`, `id_student`, `password`) VALUES
+(15, 'cou', 'prenom2', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 1, 9, ''),
+(14, 'co', 'prenom', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 1, 8, '');
 
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id_admin`);
-
---
--- Index pour la table `course`
---
-ALTER TABLE `course`
-  ADD PRIMARY KEY (`id_course`);
-
---
--- Index pour la table `group_app`
---
-ALTER TABLE `group_app`
-  ADD PRIMARY KEY (`id_group_app`);
-
---
--- Index pour la table `group_remark`
---
-ALTER TABLE `group_remark`
-  ADD PRIMARY KEY (`id_group_remark`);
-
---
--- Index pour la table `kind_of_app`
---
-ALTER TABLE `kind_of_app`
-  ADD PRIMARY KEY (`id_kind_of_app`);
-
---
--- Index pour la table `responsible`
---
-ALTER TABLE `responsible`
-  ADD PRIMARY KEY (`id_responsible`);
-
---
--- Index pour la table `skill`
---
-ALTER TABLE `skill`
-  ADD PRIMARY KEY (`id_skill`);
-
---
--- Index pour la table `skill_group`
---
-ALTER TABLE `skill_group`
-  ADD PRIMARY KEY (`id_skill_group`);
-
---
--- Index pour la table `skill_instance`
---
-ALTER TABLE `skill_instance`
-  ADD PRIMARY KEY (`id_skill_instance`);
-
---
--- Index pour la table `student`
---
-ALTER TABLE `student`
-  ADD PRIMARY KEY (`id_student`);
-
---
--- Index pour la table `student_remark`
---
-ALTER TABLE `student_remark`
-  ADD PRIMARY KEY (`id_student_remark`);
-
---
--- Index pour la table `tutor`
---
-ALTER TABLE `tutor`
-  ADD PRIMARY KEY (`id_tutor`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `course`
---
-ALTER TABLE `course`
-  MODIFY `id_course` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `group_app`
---
-ALTER TABLE `group_app`
-  MODIFY `id_group_app` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `group_remark`
---
-ALTER TABLE `group_remark`
-  MODIFY `id_group_remark` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `kind_of_app`
---
-ALTER TABLE `kind_of_app`
-  MODIFY `id_kind_of_app` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `responsible`
---
-ALTER TABLE `responsible`
-  MODIFY `id_responsible` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `skill`
---
-ALTER TABLE `skill`
-  MODIFY `id_skill` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `skill_group`
---
-ALTER TABLE `skill_group`
-  MODIFY `id_skill_group` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `student`
---
-ALTER TABLE `student`
-  MODIFY `id_student` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT pour la table `student_remark`
---
-ALTER TABLE `student_remark`
-  MODIFY `id_student_remark` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `tutor`
---
-ALTER TABLE `tutor`
-  MODIFY `id_tutor` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `user`
---
-ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
