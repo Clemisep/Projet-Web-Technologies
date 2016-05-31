@@ -1,76 +1,114 @@
 <div class="box box-danger">
             <div class="box-header">
-              <h3 class="box-title">Input masks</h3>
+              <h3 class="box-title">Ajouter un utilisateur</h3>
             </div>
+            
             <div class="box-body">
+            <form action="AddUser" method="post">
               <!-- Date dd/mm/yyyy -->
               <div class="form-group">
-                <label>Date masks:</label>
+                <label>Pseudo:</label>
 
                 <div class="input-group">
                   <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                    <i class=" fa fa-user"></i>
                   </div>
-                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                  <input type="text" class="form-control" id="pseudo" required>
+                </div>
+                <!-- /.input group -->
+              </div>
+            
+                        
+              <div class="form-group">
+                <label>Prénom</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <input type="text" class="form-control" id="firstname" required>
                 </div>
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
 
-              <!-- Date mm/dd/yyyy -->
+              
               <div class="form-group">
+                <label>Nom</label>
+
                 <div class="input-group">
                   <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                    <i class="fa fa-user"></i>
                   </div>
-                  <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                  <input type="text" class="form-control" id="lastname" required>
                 </div>
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
 
-              <!-- phone mask -->
+           
               <div class="form-group">
-                <label>US phone mask:</label>
+                <label>Date de naissance</label>
 
                 <div class="input-group">
                   <div class="input-group-addon">
-                    <i class="fa fa-phone"></i>
+                    <i class="fa fa-birthday-cake"></i>
                   </div>
-                  <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="">
+                  <input type="date" class="form-control" id="birthday" required>
                 </div>
-                <!-- /.input group -->
+                
               </div>
-              <!-- /.form group -->
+             
 
-              <!-- phone mask -->
-              <div class="form-group">
-                <label>Intl US phone mask:</label>
-
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-phone"></i>
-                  </div>
-                  <input type="text" class="form-control" data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask="">
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
-
-              <!-- IP mask -->
-              <div class="form-group">
-                <label>IP mask:</label>
+             
+              <div class="form-group" ng-controller="newPassword as np">
+                <label>mot de passe</label>
 
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask="">
+                  <input type="password" class="form-control" placeholder="Mot de passe"id="password" ng-model="password" required>
+                  <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="password2" required>
+                {{ np.textCompare }}
                 </div>
+               
+              </div>
+              
+               <div class="form-group">
+                <label>photo de profil</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-file-picture-o"></i>
+                  </div>
+                  <input type="file" class="btn btn-primary" id="picture" required>
+                </div>
+                
+                <div></div> </br>
+                
+                <label>L'utilisateur est :</label> </br>
+                <label><input type="checkbox" name="role" id="admin" value="admin"> Admin</label><br>
+                <label><input type="checkbox" name="role" id="student" value="student"> Élève,</label>
+                <label>le cas échéant, numéro d'étudiant : </label> <input type="number" id="student_id" ><br>
+                <label><input type="checkbox" name="role" id="tutor" value="tutor"> Tuteur</label><br>
+                <label><input type="checkbox" name="role" id="responsible" value="responsible"> Responsable</label><br>
+
+
+                
+                
+                </br>
+                <div>
+                <input type="submit" class="btn btn-danger" id="envoie">
+                </div>
+                
+                
                 <!-- /.input group -->
               </div>
+              </form>
+              
               <!-- /.form group -->
 
             </div>
             <!-- /.box-body -->
+            
           </div>

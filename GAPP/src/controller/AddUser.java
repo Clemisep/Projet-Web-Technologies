@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.User;
 
 @WebServlet(value={"/Test"})
-public class Test
+public class AddUser
 extends HttpServlet {
     private static final long serialVersionUID = 1;
 
@@ -23,12 +23,33 @@ extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String isStudent = request.getParameter("student");
+    	String[] roles = request.getParameterValues("role");
+    	String pseudo = request.getParameter("pseudo");
+    	String firstname = request.getParameter("firstname");
+    	String lastname = request.getParameter("lastname");
+    	String birthday = request.getParameter("birthday");   	
+    	String password = request.getParameter("password");
+    	String picture = request.getParameter("picture");
+    	String student_id = request.getParameter("student_id");
+    	
+    	
         try {
         	Calendar cal = Calendar.getInstance();
         	cal.set(1985, 8, 5);
-        	User user = User.addUser("mohamed","mohamed","sellami", new java.sql.Date(cal.getTimeInMillis()),"mohamedsellami", "2.jpeg");
-            if(isStudent.equals("true")) user.becomeStudent("46512");
+        	User user = User.addUser(pseudo,firstname,lastname, new java.sql.Date(cal.getTimeInMillis()),password, picture);
+            for (String role : roles) {
+				switch(role) {
+				case "tutor":
+					user.becomeTutor();
+					break;
+				case "admin":
+					user.becomeAdmin();
+					break;
+				case "student":
+					user.becomeStudent(student_id);
+					break;
+				}
+			}
             
         }
         catch (SQLException e) {
