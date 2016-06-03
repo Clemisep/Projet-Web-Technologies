@@ -24,13 +24,13 @@
             function display(equals) {
                 if (equals === true) {
                     return {
-                        restrict: 'EA',
-                        template: '<span color="green">Les mots de passe correspondent</span>'
+                    	color: 'green',
+                        text: 'Les mots de passe correspondent'
                     };
                 }else {
                     return {
-                        restrict: 'EA',
-                        template: '<span color="red">Les mots de passe ne correspondent pas</span>'
+                    	color: 'red',
+                        text: 'Les mots de passe ne correspondent pas'
                     };
                 }
             }

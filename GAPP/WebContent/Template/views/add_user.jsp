@@ -69,7 +69,7 @@
                   </div>
                   <input type="password" class="form-control" placeholder="Mot de passe"id="password" ng-model="npCtrl.password" required>
                   <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="npCtrl.password2" required>
-                 <span comparePasswordFactory>{{ npCtrl.activate(npCtrl.password, npCtrl.password2) }}</span>
+                 <span style="color:{{ npCtrl.result.color }}">{{ npCtrl.activate(npCtrl.password, npCtrl.password2).text }}</span>
                  
                 </div>
                

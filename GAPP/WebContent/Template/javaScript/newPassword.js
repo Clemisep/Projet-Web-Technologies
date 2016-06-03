@@ -11,13 +11,13 @@
         /*jshint validthis:true*/
         var vm = this;
 
-        vm.text = '';
-
+        vm.result = [];
+        
         vm.activate = activate;
 
         function activate(password1, password2){
-            vm.text = comparePasswordFactory.compare(password1, password2);
-            return vm.text;
+        	vm.result = comparePasswordFactory.compare(password1, password2);
+            return vm.result;
         }
 
     }
