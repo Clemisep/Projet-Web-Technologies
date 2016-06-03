@@ -13,25 +13,26 @@
         function compare(password1, password2) {
             var equals;
 
-            if (password1 === password2 && password1 !== '') {
+            if (password1 === password2) {
                 equals = true;
-            }else {
+            } else {
                 equals = false;
             }
-
-            /*equals = angular.equals(password1, password2);*/
 
             return display(equals);
 
             function display(equals) {
-                var text;
                 if (equals === true) {
-                    text = 'Les mots de passe correspondent';
+                    return {
+                        restrict: 'EA',
+                        template: '<span color="green">Les mots de passe correspondent</span>'
+                    };
                 }else {
-                    text = 'Les mots de passe ne correspondent pas';
+                    return {
+                        restrict: 'EA',
+                        template: '<span color="red">Les mots de passe ne correspondent pas</span>'
+                    };
                 }
-
-                return text;
             }
         }
 
