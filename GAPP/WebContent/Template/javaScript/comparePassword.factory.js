@@ -25,12 +25,14 @@
                 if (equals === true) {
                     return {
                     	color: 'green',
-                        text: 'Les mots de passe correspondent'
+                        text: 'Les mots de passe correspondent',
+                        validate: 'true'
                     };
                 }else {
                     return {
                     	color: 'red',
-                        text: 'Les mots de passe ne correspondent pas'
+                        text: 'Les mots de passe ne correspondent pas',
+                        validate: 'false'
                     };
                 }
             }

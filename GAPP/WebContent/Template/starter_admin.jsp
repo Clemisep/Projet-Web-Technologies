@@ -2,7 +2,7 @@
 <html ng-app="app" ng-controller="include as incCtrl">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ISEP | GAPP</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -128,7 +128,7 @@
                 <!-- search form -->
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Ã‰lÃ¨ve/Groupe">
+                        <input type="text" name="q" class="form-control" placeholder="Élève/Groupe">
                         <span class="input-group-btn">
 					<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
 					</button>
@@ -143,7 +143,7 @@
                     <!-- Optionally, you can add icons to the links -->
                     <li>
                         <a href="#" ng-click="incCtrl.redirect('student')">
-                            <span>Ã‰lÃ¨ves</span>
+                            <span>Élèves</span>
                         </a>
                     </li>
                     <li>
@@ -153,15 +153,15 @@
                     </li>
                     <li>
                         <a href="#">
-                            <span>CompÃ©tences</span>
+                            <span>Compétences</span>
                         </a>
 
                         <ul class="treeview-menu">
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('skill/skill_manager')"> <i class="fa fa-circle-o"></i> Famille de compÃ©tences</a>
+                                <a href="#" ng-click="incCtrl.redirect('skill/skill_manager')"> <i class="fa fa-circle-o"></i> Famille de compétences</a>
                             </li>
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> CompÃ©tences Ã©lÃ¨ves</a>
+                                <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
                             </li>
                         </ul>
                     </li>

@@ -4,7 +4,7 @@
             </div>
             
             <div class="box-body">
-            <form action="AddUser" method="post">
+            <form action="AddUser" method="post" >
               <!-- Date dd/mm/yyyy -->
               <div class="form-group">
                 <label>Pseudo:</label>
@@ -60,7 +60,7 @@
              
 
              
-              <div class="form-group" ng-controller="newPassword as npCtrl">
+              <div class="form-group" ng-controller="newPassword as npCtrl" >
                 <label>mot de passe</label>
 
                 <div class="input-group">
@@ -70,7 +70,6 @@
                   <input type="password" class="form-control" placeholder="Mot de passe"id="password" ng-model="npCtrl.password" required>
                   <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="npCtrl.password2" required>
                  <span style="color:{{ npCtrl.result.color }}">{{ npCtrl.activate(npCtrl.password, npCtrl.password2).text }}</span>
-                 
                 </div>
                
               </div>
@@ -85,9 +84,9 @@
                   <input type="file" class="btn btn-primary" id="picture" required>
                 </div>
                 
-                <div></div> </br>
+                <div></div> <br>
                 
-                <label>L'utilisateur est :</label> </br>
+                <label>L'utilisateur est :</label> <br>
                 <label><input type="checkbox" name="role" id="admin" value="admin"> Admin</label><br>
                 <label><input type="checkbox" name="role" id="student" value="student"> Élève,</label>
                 <label>le cas échéant, numéro d'étudiant : </label> <input type="number" id="student_id" ><br>
@@ -97,8 +96,8 @@
 
                 
                 
-                </br>
-                <div>
+                <br>
+                <div >
                 <input type="submit" class="btn btn-danger" id="envoie">
                 </div>
                 
