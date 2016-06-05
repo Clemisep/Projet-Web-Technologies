@@ -203,7 +203,7 @@
             <div class="pull-right hidden-xs">
                 Groupe D
             </div>
-            <strong>Copyright &copy; 2016 <a href="#" ng-click="incCtrl.redirect('views/student')">ISEPGAPP</a>.</strong>            Tous droits rÃ©servÃ©s.
+            <strong>Copyright &copy; 2016 <a href="#" ng-click="incCtrl.redirect('views/student')">ISEPGAPP</a>.</strong>            Tous droits réservés.
         </footer>
     </div>
 </body>
