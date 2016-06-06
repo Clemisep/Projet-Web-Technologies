@@ -37,11 +37,12 @@
     <script src="javaScript/app.module.js"></script>
     <!-- Controllers -->
     <script src="javaScript/include.js"></script>
-    <script src="javaScript/newPassword.js"></script>
+    <script src="javaScript/register/register.js"></script>
     <!--<script src="javaScript/skillManager.spec.js"></script>-->
     <!--<script src="javaScript/getStudent.spec.js"></script>-->
     <!-- Factories -->
-    <script src="javaScript/comparePassword.factory.js"></script>
+    <script src="javaScript/register/comparePassword.factory.js"></script>
+    <script src="javaScript/register/passwordValidator.factory.js"></script>]
     <!--<script src="javaScript/getStudent.factory.spec.js"></script>-->
 
 

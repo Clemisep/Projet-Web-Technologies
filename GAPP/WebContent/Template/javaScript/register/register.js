@@ -13,9 +13,9 @@
 
         vm.result = [];
         
-        vm.activate = activate;
+        vm.compare = compare;
 
-        function activate(password1, password2){
+        function compare(password1, password2){
         	vm.result = comparePasswordFactory.compare(password1, password2);
             return vm.result;
         }

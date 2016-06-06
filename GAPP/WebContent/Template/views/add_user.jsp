@@ -60,16 +60,16 @@
              
 
              
-              <div class="form-group" ng-controller="newPassword as npCtrl" >
+              <div class="form-group" ng-controller="register as rCtrl" >
                 <label>mot de passe</label>
 
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <input type="password" class="form-control" placeholder="Mot de passe"id="password" ng-model="npCtrl.password" required>
-                  <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="npCtrl.password2" required>
-                 <span style="color:{{ npCtrl.result.color }}">{{ npCtrl.activate(npCtrl.password, npCtrl.password2).text }}</span>
+                  <input type="password" class="form-control" placeholder="Mot de passe"id="password" ng-model="rCtrl.password" required>
+                  <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="rCtrl.password2" required>
+                 <span style="color:{{ rCtrl.result.color }}">{{ rCtrl.compare(rCtrl.password, rCtrl.password2).text }}</span>
                 </div>
                
               </div>
