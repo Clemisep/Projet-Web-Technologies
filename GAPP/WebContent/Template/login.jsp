@@ -35,21 +35,16 @@
         <p class="login-box-msg">Veuillez remplir les champs suivants</p>
         <form action="starter_admin.html" method="post">
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email">
+            <input name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo"><label for="pseudo">@isep.fr</label>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Mot de passe">
+            <input name="password" id="password" type="password" class="form-control" placeholder="Mot de passe">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
-            <div class="col-xs-8">
-              <div class="checkbox icheck">
-                <label style="margin-left:5px;">
-                  <input type="checkbox"> Se souvenir de moi
-                </label>
-              </div>
-            </div><!-- /.col -->
+         
+           
             <div class="col-xs-4">
               <button type="submit" class="btn btn-primary btn-block btn-flat">Connection</button>
             </div><!-- /.col -->

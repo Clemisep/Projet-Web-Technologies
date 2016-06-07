@@ -1,12 +1,14 @@
 package model;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
 import model.Table;
 import model.User;
 import model.Utils;
@@ -22,13 +24,29 @@ implements Serializable {
 
 	public static List<User> findUsers(String start) throws SQLException {
 		LinkedList<User> users = new LinkedList<User>();
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE CONCAT(last_name, CONCAT(' ', first_name)) LIKE CONCAT(?, '%')");
-		p.setString(1, start);
-		ResultSet resultSet = p.executeQuery();
-		while (resultSet.next()) {
-			users.add(new User(resultSet.getLong(1)));
+		try (PreparedStatement p =
+				Utils.prepareStatement((String)"SELECT id_user FROM user WHERE CONCAT(last_name, CONCAT(' ', first_name)) LIKE CONCAT(?, '%')")) {
+			p.setString(1, start);
+			try (ResultSet resultSet = p.executeQuery()) {
+				while (resultSet.next()) {
+					users.add(new User(resultSet.getLong(1)));
+				}
+			}
 		}
 		return users;
+		
+	}
+	
+	public static User findUser(String pseudo) throws SQLException {
+		User user;
+		try (PreparedStatement p = Utils.prepareStatement("SELECT id_user FROM user WHERE pseudo = ?")) {
+			p.setString(1, pseudo);
+			try (ResultSet resultSet = p.executeQuery()) {
+				resultSet.next();
+				user = new User(resultSet.getLong(1));
+			}
+		}
+		return user;
 	}
 
 	public static List<Student> findStudents(String start) throws SQLException {
@@ -42,57 +60,86 @@ implements Serializable {
 	}
 
 	public String getLastName() throws SQLException {
-		PreparedStatement p = Utils.getConnection().prepareStatement("SELECT last_name FROM user WHERE id_user = ?");
-		p.setLong(1, this.getId());
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		return resultSet.getString(1);
+		String lastName;
+		try (PreparedStatement p = Utils.prepareStatement("SELECT last_name FROM user WHERE id_user = ?")) {
+			p.setLong(1, this.getId());
+			try (ResultSet resultSet = p.executeQuery()) {
+				resultSet.next();
+				lastName = resultSet.getString(1);
+			}
+		}
+		return lastName;
 	}
 
 	public void setLastName(String lastName) throws SQLException {
-		PreparedStatement p = Utils.getConnection().prepareStatement("UPDATE user SET last_name = ? WHERE id_user = ?");
-		p.setString(1, lastName);
-		p.setLong(2, this.getId());
-		p.executeUpdate();
+		try (PreparedStatement p = Utils.prepareStatement("UPDATE user SET last_name = ? WHERE id_user = ?")) {
+			p.setString(1, lastName);
+			p.setLong(2, this.getId());
+			p.executeUpdate();
+		}
 	}
 
 	public String getFirstName() throws SQLException {
-		PreparedStatement p = Utils.getConnection().prepareStatement("SELECT first_name FROM user WHERE id_user = ?");
-		p.setLong(1, this.getId());
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		return resultSet.getString(1);
+		String firstName;
+		try (PreparedStatement p = Utils.getConnection().prepareStatement("SELECT first_name FROM user WHERE id_user = ?")) {
+			p.setLong(1, this.getId());
+			try (ResultSet resultSet = p.executeQuery()) {
+				resultSet.next();
+				firstName = resultSet.getString(1);
+			}
+		}
+		return firstName;
 	}
 
 	public void setFirstName(String firstName) throws SQLException {
-		PreparedStatement p = Utils.getConnection().prepareStatement("UPDATE user SET first_name = ? WHERE id_user = ?");
-		p.setString(1, firstName);
-		p.setLong(2, this.getId());
-		p.executeUpdate();
+		try (PreparedStatement p = Utils.getConnection().prepareStatement("UPDATE user SET first_name = ? WHERE id_user = ?")) {
+			p.setString(1, firstName);
+			p.setLong(2, this.getId());
+			p.executeUpdate();
+		}
 	}
 
 	public Date getBirthDate() throws SQLException {
-		PreparedStatement p = Utils.getConnection().prepareStatement("SELECT birth_date FROM user WHERE id_user = ?");
-		p.setLong(1, this.getId());
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		return resultSet.getDate(1);
+		Date date;
+		try (PreparedStatement p = Utils.getConnection().prepareStatement("SELECT birth_date FROM user WHERE id_user = ?")) {
+			p.setLong(1, this.getId());
+			try (ResultSet resultSet = p.executeQuery()) {
+				resultSet.next();
+				date = resultSet.getDate(1);
+			}
+		}
+		return date;
 	}
 
 	public void setBirthDate(Date date) throws SQLException {
-		PreparedStatement p = Utils.getConnection().prepareStatement("UPDATE user SET birth_date = ? WHERE id_user = ?");
-		p.setDate(1, date);
-		p.setLong(2, this.getId());
-		p.executeUpdate();
+		try (PreparedStatement p = Utils.prepareStatement("UPDATE user SET birth_date = ? WHERE id_user = ?")) {
+			p.setDate(1, date);
+			p.setLong(2, this.getId());
+			p.executeUpdate();
+		}
+	}
+	
+	public String getEncryptedPassword() throws SQLException, NoSuchAlgorithmException {
+		return getAttrString("password");
+	}
+	
+	public void setPassword(String password) throws SQLException {
+		setAttrString("password", CryptWithMD5.cryptWithMD5(password));
 	}
 
-	public static User addUser(String firstName, String lastName, Date birthDate) throws SQLException {
-		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO user(first_name, last_name, birth_date)VALUES(?, ?, ?)");
-		p.setString(1, firstName);
-		p.setString(2, lastName);
-		p.setDate(3, birthDate);
-		p.executeUpdate();
-		long key = Utils.getKey((PreparedStatement)p);
+	public static User addUser(String pseudo, String firstName, String lastName, Date birthDate, String password, String id_picture) throws SQLException {
+		long key;
+		try (PreparedStatement p = Utils.prepareStatementWithKey(
+				(String)"INSERT INTO user(pseudo, first_name, last_name, birth_date, password, id_picture) VALUES(?, ?, ?, ?, ?,?)")) {
+			p.setString(1, pseudo);
+			p.setString(2, firstName);
+			p.setString(3, lastName);
+			p.setDate(4, birthDate);
+			p.setString(5, password);
+			p.setString(6, id_picture);
+			p.executeUpdate();
+			key = Utils.getKey((PreparedStatement)p);
+		}
 		return new User(key);
 	}
 
@@ -117,6 +164,7 @@ implements Serializable {
 		long idStudent = Utils.getKey((PreparedStatement)p);
 		this.setAttrLong("is_student", 1);
 		this.setAttrLong("id_student", idStudent);
+		p.close();
 		return new Student(idStudent);
 	}
 
@@ -158,6 +206,7 @@ implements Serializable {
 		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO admin() VALUES()");
 		p.executeUpdate();
 		long idAdmin = Utils.getKey((PreparedStatement)p);
+		p.close();
 		return new Admin(idAdmin);
 	}
 
@@ -189,6 +238,7 @@ implements Serializable {
 		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO responsible() VALUES()");
 		p.executeUpdate();
 		long idResponsible = Utils.getKey((PreparedStatement)p);
+		p.close();
 		return new Responsible(idResponsible);
 	}
 
@@ -210,6 +260,7 @@ implements Serializable {
 		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO tutor() VALUES()");
 		p.executeUpdate();
 		long idTutor = Utils.getKey((PreparedStatement)p);
+		p.close();
 		return new Tutor(idTutor);
 	}
 
@@ -310,15 +361,13 @@ implements Serializable {
 
 		public class Tutor {
 			private long idTutor;
-			final User this$0;
 
 			private Tutor(User user, long idTutor) {
-				this.this$0 = user;
 				this.idTutor = idTutor;
 			}
 
 			public User getUser() {
-				return this.this$0;
+				return User.this;
 			}
 
 			public long getId() {

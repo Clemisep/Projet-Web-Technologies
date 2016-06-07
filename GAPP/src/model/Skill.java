@@ -21,6 +21,7 @@ implements Serializable {
         p.setLong(1, skillGroup.getId());
         p.setString(2, description);
         p.executeUpdate();
+        p.close();
         return new Skill(Utils.getKey((PreparedStatement)p));
     }
 

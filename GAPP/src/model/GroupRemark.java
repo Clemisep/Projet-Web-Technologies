@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 import model.GroupApp;
 import model.Remark;
 import model.Table;
@@ -26,7 +25,9 @@ Serializable {
         p.setString(2, description);
         p.setDate(3, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         p.executeUpdate();
-        return new GroupRemark(Utils.getKey((PreparedStatement)p));
+        long key = Utils.getKey((PreparedStatement)p);
+        p.close();
+		return new GroupRemark(key);
     }
 
     public String getDescription() throws SQLException {

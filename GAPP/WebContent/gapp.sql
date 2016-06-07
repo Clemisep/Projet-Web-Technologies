@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 17 Mai 2016 à 10:16
+-- Généré le :  Mar 31 Mai 2016 à 10:05
 -- Version du serveur :  5.7.9
 -- Version de PHP :  5.6.16
 
@@ -35,13 +35,15 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `assoc_skill_skill_group`
+-- Structure de la table `assoc_kind_of_app_skill_group`
 --
 
-DROP TABLE IF EXISTS `assoc_skill_skill_group`;
-CREATE TABLE IF NOT EXISTS `assoc_skill_skill_group` (
-  `idSkillGroup` int(11) NOT NULL,
-  `idSkill` int(11) NOT NULL
+DROP TABLE IF EXISTS `assoc_kind_of_app_skill_group`;
+CREATE TABLE IF NOT EXISTS `assoc_kind_of_app_skill_group` (
+  `id_assoc` int(11) NOT NULL,
+  `id_kind_of_app` int(11) NOT NULL,
+  `id_skill_group` int(11) NOT NULL,
+  PRIMARY KEY (`id_assoc`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -161,7 +163,6 @@ CREATE TABLE IF NOT EXISTS `skill` (
 DROP TABLE IF EXISTS `skill_group`;
 CREATE TABLE IF NOT EXISTS `skill_group` (
   `id_skill_group` int(11) NOT NULL AUTO_INCREMENT,
-  `id_kind_of_app` int(11) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id_skill_group`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -194,6 +195,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `id_student` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
   `id_group_app` int(11) DEFAULT NULL,
+  `promo` year(4) NOT NULL,
   PRIMARY KEY (`id_student`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
@@ -201,9 +203,9 @@ CREATE TABLE IF NOT EXISTS `student` (
 -- Contenu de la table `student`
 --
 
-INSERT INTO `student` (`id_student`, `student_id`, `id_group_app`) VALUES
-(9, 46512, 1),
-(8, 46512, NULL);
+INSERT INTO `student` (`id_student`, `student_id`, `id_group_app`, `promo`) VALUES
+(9, 46512, 1, 0000),
+(8, 46512, NULL, 0000);
 
 -- --------------------------------------------------------
 
@@ -241,6 +243,7 @@ CREATE TABLE IF NOT EXISTS `tutor` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `pseudo` varchar(30) NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `birth_date` date NOT NULL,
@@ -252,16 +255,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id_tutor` int(11) DEFAULT '0' COMMENT 'Meaningfull only if tutor',
   `is_student` tinyint(1) NOT NULL DEFAULT '0',
   `id_student` int(11) NOT NULL DEFAULT '0' COMMENT 'Meaningfull only if student',
-  PRIMARY KEY (`id_user`)
+  `password` text NOT NULL,
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `pseudo` (`pseudo`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id_user`, `first_name`, `last_name`, `birth_date`, `is_admin`, `id_admin`, `is_responsible`, `id_responsible`, `is_tutor`, `id_tutor`, `is_student`, `id_student`) VALUES
-(15, 'prenom2', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 1, 9),
-(14, 'prenom', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 1, 8);
+INSERT INTO `user` (`id_user`, `pseudo`, `first_name`, `last_name`, `birth_date`, `is_admin`, `id_admin`, `is_responsible`, `id_responsible`, `is_tutor`, `id_tutor`, `is_student`, `id_student`, `password`) VALUES
+(15, 'cou', 'prenom2', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 1, 9, ''),
+(14, 'co', 'prenom', 'nom', '1970-01-01', 0, 0, 0, 0, 0, 0, 1, 8, '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

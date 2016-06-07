@@ -2,7 +2,7 @@
 <html ng-app="app" ng-controller="include as incCtrl">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ISEP | GAPP</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -37,9 +37,12 @@
     <script src="javaScript/app.module.js"></script>
     <!-- Controllers -->
     <script src="javaScript/include.js"></script>
+    <script src="javaScript/register/register.js"></script>
     <!--<script src="javaScript/skillManager.spec.js"></script>-->
     <!--<script src="javaScript/getStudent.spec.js"></script>-->
     <!-- Factories -->
+    <script src="javaScript/register/comparePassword.factory.js"></script>
+    <script src="javaScript/register/passwordValidator.factory.js"></script>]
     <!--<script src="javaScript/getStudent.factory.spec.js"></script>-->
 
 
@@ -126,7 +129,7 @@
                 <!-- search form -->
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Ã‰lÃ¨ve/Groupe">
+                        <input type="text" name="q" class="form-control" placeholder="Élève/Groupe">
                         <span class="input-group-btn">
 					<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
 					</button>
@@ -139,9 +142,9 @@
                 <ul class="sidebar-menu">
                     <li class="header">Menu</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active">
+                    <li>
                         <a href="#" ng-click="incCtrl.redirect('student')">
-                            <span>Ã‰lÃ¨ves</span>
+                            <span>Élèves</span>
                         </a>
                     </li>
                     <li>
@@ -151,15 +154,15 @@
                     </li>
                     <li>
                         <a href="#">
-                            <span>CompÃ©tences</span>
+                            <span>Compétences</span>
                         </a>
 
                         <ul class="treeview-menu">
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('skill/skill_manager')"> <i class="fa fa-circle-o"></i> Famille de compÃ©tences</a>
+                                <a href="#" ng-click="incCtrl.redirect('skill/skill_manager')"> <i class="fa fa-circle-o"></i> Famille de compétences</a>
                             </li>
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> CompÃ©tences Ã©lÃ¨ves</a>
+                                <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
                             </li>
                         </ul>
                     </li>
@@ -173,6 +176,13 @@
                             <span>Hyperplanning</span>
                         </a>
                     </li>
+                    
+                    <li>
+                        <a href="#" ng-click="incCtrl.redirect('add_user')">
+                            <span>Ajouter utilisateur</span>
+                        </a>
+                    </li>
+                    
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -194,7 +204,7 @@
             <div class="pull-right hidden-xs">
                 Groupe D
             </div>
-            <strong>Copyright &copy; 2016 <a href="#" ng-click="incCtrl.redirect('views/student')">ISEPGAPP</a>.</strong>            Tous droits rÃ©servÃ©s.
+            <strong>Copyright &copy; 2016 <a href="#" ng-click="incCtrl.redirect('views/student')">ISEPGAPP</a>.</strong>            Tous droits réservés.
         </footer>
     </div>
 </body>
