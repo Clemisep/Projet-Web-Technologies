@@ -24,7 +24,7 @@
     		
     		if(!regularExpression.test(password)) {
     			return {
-    				text: 'password should contain atleast one number and one special character',
+    				text: 'password should contain at least one number and one special character',
     	        	validate: false
     			};
     	        
