@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html ng-app="app" ng-controller="include as incCtrl">
 
@@ -98,7 +100,7 @@
                                         <a href="#" ng-click="incCtrl.redirect('views/profile')" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="http://localhost:8080/GAPP/Logout" class="btn btn-default btn-flat">Déconnexion</a>
                                     </div>
                                 </li>
                             </ul>
@@ -176,11 +178,17 @@
                             <span>Hyperplanning</span>
                         </a>
                     </li>
+                    
+                    <% Object pseudo = session.getAttribute("pseudo");
+                    if(pseudo != null) {
+                    User user = User.findUser((String)pseudo);
+                    if(user.extractAdmin() != null) { %>
                     <li>
                         <a href="#" ng-click="incCtrl.redirect('add_user')">
                             <span>Ajouter utilisateur</span>
                         </a>
                     </li>
+                    <% }} %>
                     
                 </ul>
                 <!-- /.sidebar-menu -->
