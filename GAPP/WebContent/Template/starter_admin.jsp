@@ -42,7 +42,7 @@
     <!--<script src="javaScript/getStudent.spec.js"></script>-->
     <!-- Factories -->
     <script src="javaScript/register/comparePassword.factory.js"></script>
-    <!-- <script src="javaScript/register/passwordValidator.factory.js"></script> -->
+    <script src="javaScript/register/passwordValidator.factory.js"></script>
     <!--<script src="javaScript/getStudent.factory.spec.js"></script>-->
 
 
