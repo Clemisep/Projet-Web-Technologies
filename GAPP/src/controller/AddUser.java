@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -30,7 +32,17 @@ extends HttpServlet {
     	String pseudo = request.getParameter("pseudo");
     	String firstname = request.getParameter("firstname");
     	String lastname = request.getParameter("lastname");
-    	String birthday = request.getParameter("birthday");   	
+    	String birthday = request.getParameter("birthday");   
+    	
+    	SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy");
+    	Date x = null;
+		try {
+			x = new java.sql.Date( format.parse(birthday).getTime());
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
     	String password = request.getParameter("password");
     	String password2 = request.getParameter("password2");
     	String picture = request.getParameter("picture");
@@ -38,9 +50,7 @@ extends HttpServlet {
     	
     	if(validate(password) && password == password2) {    	
         try {
-        	Calendar cal = Calendar.getInstance();
-        	cal.set(1985, 8, 5);
-        	User user = User.addUser(pseudo,firstname,lastname, new java.sql.Date(cal.getTimeInMillis()),password, picture);
+        	User user = User.addUser(pseudo,firstname,lastname, x,password, picture);
             for (String role : roles) {
 				switch(role) {
 				case "tutor":
@@ -50,6 +60,9 @@ extends HttpServlet {
 					user.becomeAdmin();
 					break;
 				case "student":
+					user.becomeStudent(student_id);
+					break;					
+				case "responsible":
 					user.becomeStudent(student_id);
 					break;
 				}

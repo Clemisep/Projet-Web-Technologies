@@ -81,7 +81,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-file-picture-o"></i>
                   </div>
-                  <input type="file" class="btn btn-primary" id="picture" required>
+                  <input type="file" class="btn btn-primary" id="picture">
                 </div>
                 
                 <div></div> <br>
