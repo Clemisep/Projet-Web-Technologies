@@ -156,10 +156,11 @@ implements Serializable {
 		return null;
 	}
 
-	public Student becomeStudent(String studentId) throws SQLException {
+	public Student becomeStudent(String studentId, long promo) throws SQLException {
 		assert (this.extractStudent() == null);
-		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO student(student_id) VALUES(?)");
+		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO student(student_id, promo) VALUES(?,?)");
 		p.setString(1, studentId);
+		p.setLong(2, promo);
 		p.executeUpdate();
 		long idStudent = Utils.getKey((PreparedStatement)p);
 		this.setAttrLong("is_student", 1);

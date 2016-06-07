@@ -68,7 +68,7 @@
                     <i class="fa fa-laptop"></i>
                   </div>
                   <input type="password" class="form-control" placeholder="Mot de passe"id="password" name="password" ng-model="rCtrl.password" required>
-                  <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="rCtrl.password2" required>
+                  <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" name="password2" ng-model="rCtrl.password2" required>
                  <span style="color:{{ rCtrl.result.color }}">{{ rCtrl.compare(rCtrl.password, rCtrl.password2).text }}</span>
                 </div>
                
@@ -89,7 +89,7 @@
                 <label>L'utilisateur est :</label> <br>
                 <label><input type="checkbox" name="role" id="admin" value="admin"> Admin</label><br>
                 <label><input type="checkbox" name="role" id="student" value="student"> Élève,</label>
-                <label>le cas échéant, numéro d'étudiant : </label> <input type="number" id="student_id" ><br>
+                <label>le cas échéant, numéro d'étudiant</label> <input type="number" id="student_id" name="student_id" ><label> et la promotion : </label><input type="number" id="promo" name="promo" placeholder="2017" ><br>
                 <label><input type="checkbox" name="role" id="tutor" value="tutor"> Tuteur</label><br>
                 <label><input type="checkbox" name="role" id="responsible" value="responsible"> Responsable</label><br>
 

@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,9 +52,8 @@ extends HttpServlet {
     	String password = request.getParameter("password");
     	String password2 = request.getParameter("password2");
     	String picture = request.getParameter("picture");
-    	String student_id = request.getParameter("student_id");
     	
-    	if(validate(password) && password.equals(password2) || true) {    	
+    	if(validate(password) && password.equals(password2)) {    	
         try {
         	User user = User.addUser(pseudo,firstname,lastname, x,password, picture);
             for (String role : roles) {
@@ -65,20 +65,25 @@ extends HttpServlet {
 					user.becomeAdmin();
 					break;
 				case "student":
-					user.becomeStudent(student_id);
+					String student_id = request.getParameter("student_id");
+					long promo = Long.parseLong(request.getParameter("promo"));
+					user.becomeStudent(student_id, promo);
 					break;					
 				case "responsible":
-					user.becomeStudent(student_id);
+					user.becomeResponsible();
 					break;
 				}
 			}
             
+            
+            response.sendRedirect("Template/starter_admin.jsp");
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
     	}else {
     		log("Password is not correct or passwords do not match");
+    		response.sendRedirect("Template/add_user.jsp");
     	}
     }
     
@@ -88,5 +93,7 @@ extends HttpServlet {
     	Matcher matcher = pattern.matcher(password);
     	return matcher.matches();*/
     	return true;
+    	
+    	
     }
 }
