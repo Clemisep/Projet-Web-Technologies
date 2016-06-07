@@ -1,3 +1,4 @@
+<%@ page import="controller.Connection" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -33,7 +34,7 @@
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Veuillez remplir les champs suivants</p>
-        <form action="starter_admin.html" method="post">
+        <form action="/GAPP/Connection" method="post">
           <div class="form-group has-feedback">
             <input name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo"><label for="pseudo">@isep.fr</label>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -53,7 +54,7 @@
 
           </div><!-- /.social-auth-links -->
 
-        <a href="#">J'ai oubliÃ© mon mot de passe</a><br>
+        <a href="#">J'ai oublié mon mot de passe</a><br>
 
 
       </div><!-- /.login-box-body -->

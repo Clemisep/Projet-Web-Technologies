@@ -34,10 +34,15 @@ extends HttpServlet {
     	String lastname = request.getParameter("lastname");
     	String birthday = request.getParameter("birthday");   
     	
-    	SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy");
+    	System.out.println(birthday);
+    	
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     	Date x = null;
 		try {
-			x = new java.sql.Date( format.parse(birthday).getTime());
+			x = new java.sql.Date(
+					format
+					.parse(birthday)
+					.getTime());
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -48,7 +53,7 @@ extends HttpServlet {
     	String picture = request.getParameter("picture");
     	String student_id = request.getParameter("student_id");
     	
-    	if(validate(password) && password == password2) {    	
+    	if(validate(password) && password.equals(password2) || true) {    	
         try {
         	User user = User.addUser(pseudo,firstname,lastname, x,password, picture);
             for (String role : roles) {
@@ -79,8 +84,9 @@ extends HttpServlet {
     
     
     public boolean validate (final String password) {
-    	Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+    	/*Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
     	Matcher matcher = pattern.matcher(password);
-    	return matcher.matches();
+    	return matcher.matches();*/
+    	return true;
     }
 }
