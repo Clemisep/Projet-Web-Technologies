@@ -44,6 +44,8 @@ implements Serializable {
 			try (ResultSet resultSet = p.executeQuery()) {
 				resultSet.next();
 				user = new User(resultSet.getLong(1));
+			} catch(SQLException e) {
+				return null;
 			}
 		}
 		return user;
@@ -135,7 +137,7 @@ implements Serializable {
 			p.setString(2, firstName);
 			p.setString(3, lastName);
 			p.setDate(4, birthDate);
-			p.setString(5, password);
+			p.setString(5, CryptWithMD5.cryptWithMD5(password));
 			p.setString(6, picture);
 			p.executeUpdate();
 			key = Utils.getKey((PreparedStatement)p);

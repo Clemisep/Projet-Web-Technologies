@@ -47,7 +47,7 @@
 
 
     <!-- Tableau -->
-<script type="text/javascript" language="javascript" src="http://tablefilter.free.fr/TableFilter/tablefilter.js"></script>  
+<script type="text/javascript" src="http://tablefilter.free.fr/TableFilter/tablefilter.js"></script>  
 	
 </head>
 
@@ -79,7 +79,7 @@
                                 <!-- The user image in the navbar-->
                                 <img src="http://perso.isep.fr/msellami/images/moi.JPG" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Mohammed Sellami</span>
+                                <span class="hidden-xs"><%= session.getAttribute("pseudo") %></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
@@ -176,7 +176,6 @@
                             <span>Hyperplanning</span>
                         </a>
                     </li>
-                    
                     <li>
                         <a href="#" ng-click="incCtrl.redirect('add_user')">
                             <span>Ajouter utilisateur</span>
