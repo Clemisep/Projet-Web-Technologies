@@ -49,7 +49,7 @@
 
 
     <!-- Tableau -->
-<script type="text/javascript" src="http://tablefilter.free.fr/TableFilter/tablefilter.js"></script>  
+<script type="text/javascript" src=/GAPP/WebContent/Template/javaScript/tablefilter.js></script>  
 	
 </head>
 
