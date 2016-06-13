@@ -17,7 +17,7 @@ implements Serializable {
     }
 
     public static Skill addSkill(SkillGroup skillGroup, String description) throws SQLException {
-        PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO skill(id_skill_group, description) VALUES(?,?)");
+        PreparedStatement p = Utils.prepareStatementWithKey("INSERT INTO skill(id_skill_group, description) VALUES(?,?)");
         p.setLong(1, skillGroup.getId());
         p.setString(2, description);
         p.executeUpdate();
