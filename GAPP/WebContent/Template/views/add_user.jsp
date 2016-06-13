@@ -4,7 +4,7 @@
             </div>
             
             <div class="box-body">
-            <form action="AddUser" method="post" >
+            <form action="http://localhost:8080/GAPP/AddUser" method="post" >
               <!-- Date dd/mm/yyyy -->
               <div class="form-group">
                 <label>Pseudo:</label>
@@ -13,7 +13,7 @@
                   <div class="input-group-addon">
                     <i class=" fa fa-user"></i>
                   </div>
-                  <input type="text" class="form-control" id="pseudo" required>
+                  <input type="text" class="form-control" id="pseudo" name="pseudo"required>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -25,7 +25,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-user"></i>
                   </div>
-                  <input type="text" class="form-control" id="firstname" required>
+                  <input type="text" class="form-control" id="firstname" name="firstname" required>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -39,7 +39,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-user"></i>
                   </div>
-                  <input type="text" class="form-control" id="lastname" required>
+                  <input type="text" class="form-control" id="lastname" name="lastname" required>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -53,7 +53,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-birthday-cake"></i>
                   </div>
-                  <input type="date" class="form-control" id="birthday" required>
+                  <input type="date" class="form-control" id="birthday" name="birthday" required>
                 </div>
                 
               </div>
@@ -67,7 +67,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-laptop"></i>
                   </div>
-                  <input type="password" class="form-control" placeholder="Mot de passe"id="password" ng-model="rCtrl.password" required>
+                  <input type="password" class="form-control" placeholder="Mot de passe"id="password" name="password" ng-model="rCtrl.password" required>
                   <input type="password" class="form-control" placeholder="Confirmer votre mot de passe" id="password2" ng-model="rCtrl.password2" required>
                  <span style="color:{{ rCtrl.result.color }}">{{ rCtrl.compare(rCtrl.password, rCtrl.password2).text }}</span>
                 </div>
@@ -81,7 +81,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-file-picture-o"></i>
                   </div>
-                  <input type="file" class="btn btn-primary" id="picture" required>
+                  <input type="file" class="btn btn-primary" id="picture" name="picture">
                 </div>
                 
                 <div></div> <br>

@@ -21,7 +21,12 @@ public class FileUploadDBServlet extends HttpServlet {
      
     
      
-    protected void doPost(HttpServletRequest request,
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
             
          

@@ -13,8 +13,11 @@
     	
     	function validLength(password) {
     		
-    		if(newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars){
-    	        return false;
+    		if(newPassword.length < 7){
+    			return {
+    				text: 'password should be longer than 7',
+    				validate: false
+    			}
     	    }
     		
     	}
@@ -24,7 +27,7 @@
     		
     		if(!regularExpression.test(password)) {
     			return {
-    				text: 'password should contain atleast one number and one special character',
+    				text: 'password should contain at least one number and one special character',
     	        	validate: false
     			};
     	        
