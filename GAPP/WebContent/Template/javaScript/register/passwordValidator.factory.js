@@ -13,8 +13,11 @@
     	
     	function validLength(password) {
     		
-    		if(newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars){
-    	        return false;
+    		if(newPassword.length < 7){
+    			return {
+    				text: 'password should be longer than 7',
+    				validate: false
+    			}
     	    }
     		
     	}
