@@ -61,4 +61,18 @@ extends Table {
 		}
     	return new GroupApp(key);
     }
+    
+    public String getName() throws SQLException {
+    	return getAttrString("name");
+    }
+    
+    public User.Tutor getTutor() throws SQLException {
+    	return User.getTutor(getAttrLong("id_tutor"));
+    }
+    
+    public KindOfApp getKindOfApp() throws SQLException {
+    	return KindOfApp.getKindOfApp(getAttrLong("id_kind_of_app"));
+    }
+    
+    
 }

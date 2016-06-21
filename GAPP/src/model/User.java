@@ -195,7 +195,7 @@ implements Serializable {
 	}
 	
 	
-public static List<Tutor> getAllTutors() throws SQLException {
+	public static List<Tutor> getAllTutors() throws SQLException {
 		
 		LinkedList<Tutor> tutors = new LinkedList<Tutor>();
 		
@@ -219,6 +219,16 @@ public static List<Tutor> getAllTutors() throws SQLException {
 		return user.extractStudent();
 	}
 
+	public static User.Tutor getTutor(long idTutor) throws SQLException {
+		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_tutor FROM tutor WHERE id_tutor = ?");
+		p.setLong(1, idTutor);
+		ResultSet resultSet = p.executeQuery();
+		resultSet.next();
+		long idUser = resultSet.getLong(1);
+		User user = new User(idUser);
+		return user.extractTutor();
+	}
+	
 	public Admin extractAdmin() throws SQLException {
 		PreparedStatement p = Utils.prepareStatement((String)"SELECT is_admin, id_admin FROM user WHERE id_user = ?");
 		p.setLong(1, this.getId());

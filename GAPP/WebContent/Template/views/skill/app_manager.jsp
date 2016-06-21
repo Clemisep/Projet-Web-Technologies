@@ -1,5 +1,5 @@
 <%@ page import="java.util.List"%>
-<%@ page import="model.User"%>
+<%@ page import="model.*"%>
 <!DOCTYPE html>
 <html>
 
@@ -31,8 +31,8 @@
 
 
 
-					<select class="form-control" id="id_responsible" name="id_responsible"
-						required>
+					<select class="form-control" id="id_responsible"
+						name="id_responsible" required>
 						<%
                   List<User.Responsible> responsibles =  User.getAllResponsibles();
                  for (User.Responsible responsible : responsibles) {
@@ -57,7 +57,7 @@
 					<div class="input-group-addon">
 						<i class="fa fa-user"></i>
 					</div>
-					<input type="text" id="description" name="description">
+					<textarea type="text" id="description" name="description"> Description de l'APP</textarea>
 				</div>
 				<!-- /.input group -->
 			</div>
@@ -90,35 +90,48 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<table id="example2"
-							class="table table-bordered table-hover dataTable" role="grid"
-							aria-describedby="example2_info">
+
+
+
+
+
+						<table id="table2" class="mytable filterable">
 							<thead>
-								<tr role="row">
-
-									<th class="sorting_asc" tabindex="1" aria-controls="example2"
-										rowspan="1" colspan="1" aria-sort="ascending"
-										aria-label="skill: activate to sort column descending">Nom
-										du Type d'APP</th>
-
-
-
-
-									<th class="sorting_asc" tabindex="2" aria-controls="example2"
-										rowspan="1" colspan="1" aria-sort="ascending"
-										aria-label="subSkill: activate to sort column descending">Responsable
-										APP</th>
-								</tr>
+								<th>Nom APP</th>
+								
+								<th>Description</th>
 							</thead>
 							<tbody>
-								<!-- Dynamic data display -->
-								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
+								<%
+	String param = "";
+								List<KindOfApp> kindOfApps = KindOfApp.getKindOfApps();
+	for(KindOfApp kindOfApp : kindOfApps) {
+%>								<tr>
+									<td><%= kindOfApp.getName() %></td>
+									
+									<td><%= kindOfApp.getDescription() %></td>
 								</tr>
+								
+																
+								<% } %>
 							</tbody>
 						</table>
+						<script type="text/javascript">
+		//<![CDATA[
+			var tf = new TF('table2');
+			tf.AddGrid();
+		//]]>
+		</script>
+
+
+
+
+
+
+
+
+
+				
 					</div>
 				</div>
 			</div>

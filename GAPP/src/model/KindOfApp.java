@@ -14,12 +14,20 @@ public class KindOfApp
 extends Table {
     private static final long serialVersionUID = -5396406978403194651L;
 
-    public KindOfApp(long idGroup) {
-        super("group", idGroup);
+    private KindOfApp(long idGroup) {
+        super("kind_of_app", idGroup);
+    }
+    
+    public static KindOfApp getKindOfApp(long idKindOfApp) {
+    	return new KindOfApp(idKindOfApp);
     }
     
     public String getName() throws SQLException {
     	return getAttrString("name");
+    }
+    
+    public String getDescription() throws SQLException {
+    	return getAttrString("description");
     }
 
     public User.Responsible getResponsible() throws SQLException {
