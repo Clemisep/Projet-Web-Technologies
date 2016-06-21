@@ -264,7 +264,7 @@ implements Serializable {
 	}
 
 	public Tutor extractTutor() throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT isTutor, idTutor FROM user WHERE id_user = ?");
+		PreparedStatement p = Utils.prepareStatement((String)"SELECT is_tutor, id_tutor FROM user WHERE id_user = ?");
 		p.setLong(1, this.getId());
 		ResultSet resultSet = p.executeQuery();
 		resultSet.next();
@@ -351,7 +351,7 @@ implements Serializable {
 		}
 
 		public String getStudentId() throws SQLException {
-			PreparedStatement p = Utils.prepareStatement((String)"SELECT student_id FROM student WHERE student_id = ?");
+			PreparedStatement p = Utils.prepareStatement((String)"SELECT student_id FROM student WHERE id_student = ?");
 			p.setLong(1, this.getId());
 			return Utils.execResult((PreparedStatement)p).getString(1);
 		}
@@ -364,17 +364,17 @@ implements Serializable {
 		}
 
 		public GroupApp getGroupApp() throws SQLException {
-			long idGroupApp = this.getAttrLong("group_app");
+			long idGroupApp = this.getAttrLong("id_group_app");
 			return new GroupApp(idGroupApp);
 		}
 
 		public void setGroupApp(GroupApp groupApp) throws SQLException {
-			this.setAttrLong("group_app", groupApp.getId());
+			this.setAttrLong("id_group_app", groupApp.getId());
 		}
 
 		public List<SkillInstance> getSkillInstances() throws SQLException {
 			LinkedList<SkillInstance> skillInstances = new LinkedList<SkillInstance>();
-			PreparedStatement p = Utils.prepareStatement((String)"SELECT id_skill_instance FROM skill_instance WHERE id_user = ?");
+			PreparedStatement p = Utils.prepareStatement((String)"SELECT id_skill_instance FROM skill_instance WHERE id_student = ?");
 			p.setLong(1, this.getId());
 			ResultSet resultSet = p.executeQuery();
 			while (resultSet.next()) {

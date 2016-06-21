@@ -97,7 +97,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" ng-click="incCtrl.redirect('views/profile')" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" ng-click="incCtrl.redirect('profile')" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="http://localhost:8080/GAPP/Logout" class="btn btn-default btn-flat">Déconnexion</a>

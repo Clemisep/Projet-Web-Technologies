@@ -17,8 +17,9 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
+					
 <%
-	String pseudo = request.getParameter("pseudo");
+	String pseudo = (String) session.getAttribute("pseudo");
 	if (pseudo == null) {
 %>
 Cette page n'existe pas.
