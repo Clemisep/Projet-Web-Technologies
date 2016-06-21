@@ -71,6 +71,7 @@ extends Table {
     }
     
     public User.Tutor getTutor() throws SQLException {
+    	System.out.println(getAttrLong("id_tutor"));
     	return User.getTutor(getAttrLong("id_tutor"));
     }
     

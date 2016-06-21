@@ -83,6 +83,7 @@
 
 
 
+						Groupe
 	<div class="box">
 		<!-- /.box-header -->
 		<div class="box-body">
@@ -94,31 +95,27 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<%
-									for(GroupApp group : GroupApp.getGroups()) {
-										%>
-						Groupe
 						<table class="table table-bordered table-hover dataTable">
 							<thead>
 								<th>Nom</th>
-								<th>Prénom</th>
+								<th>Tuteur</th>
+								<th>Type d'APP</th>
 							</thead>
 							<tbody>
-								<% for(User.Student student : group.getStudents()) {
-                        		User user = student.getUser();
-                        		%>
+								
+						<%
+									for(GroupApp group : GroupApp.getGroups()) {
+										%>
 								<tr>
-									<td><%= user.getLastName() %></td>
-									<td><%= user.getFirstName() %></td>
+									<td><%= group.getName() %></td>
+									<% User tutor = group.getTutor().getUser();  %>
+									<td><%= tutor.getLastName() + " " + tutor.getFirstName() %></td>
+									<td><%= group.getKindOfApp().getName() %></td>
 								</tr>
 
 								<% } %>
 							</tbody>
 						</table>
-
-						<%
-									}
-								%>
 
 					</div>
 				</div>
