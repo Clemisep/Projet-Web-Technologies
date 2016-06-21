@@ -102,11 +102,10 @@
 								<th>Type d'APP</th>
 							</thead>
 							<tbody>
-								
 						<%
 									for(GroupApp group : GroupApp.getGroups()) {
 										%>
-								<tr>
+								<tr style="cursor:pointer" onclick="include_in_dynamic('views/view_group.jsp?id_group=<%= group.getId() %>')">
 									<td><%= group.getName() %></td>
 									<% User tutor = group.getTutor().getUser();  %>
 									<td><%= tutor.getLastName() + " " + tutor.getFirstName() %></td>

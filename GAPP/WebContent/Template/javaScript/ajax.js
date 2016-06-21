@@ -7,3 +7,7 @@ function include_in(url_page, id_div) {
 		}
 	})
 }
+
+function include_in_dynamic(url_page) {
+	include_in(url_page, "corps");
+}

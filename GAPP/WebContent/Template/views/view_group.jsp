@@ -16,9 +16,13 @@
 					<% // GET parameter : id_group
 					
 					long id_group = Long.parseLong(request.getParameter("id_group"));
-					GroupApp.getGroupApp(id_group);
-					
+					GroupApp groupApp = GroupApp.getGroupApp(id_group);
+					User tutor = groupApp.getTutor().getUser();
 					%>
+					
+					Type d'APP : <%= groupApp.getKindOfApp().getName() %>
+					Tuteur : <%= tutor.getLastName() + " " + tutor.getFirstName() %>
+					
 				</div>
 			</div>
 		</div>

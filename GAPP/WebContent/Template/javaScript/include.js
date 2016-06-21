@@ -12,8 +12,10 @@
 
         var default_redirect = document.getElementById('default_redirect').innerHTML;
         
+        include_in(default_redirect, "corps");
+        /*
         vm.template = default_redirect;
-        
+        */
         vm.redirect = redirect;
         vm.redirect_dynamic = redirect_dynamic;
         
