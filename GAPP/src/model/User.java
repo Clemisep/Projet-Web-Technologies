@@ -38,7 +38,7 @@ implements Serializable {
 	}
 	
 	public static User findUser(String pseudo) throws SQLException {
-		User user;
+		User user = null;
 		try (PreparedStatement p = Utils.prepareStatement("SELECT id_user FROM user WHERE pseudo = ?")) {
 			p.setString(1, pseudo);
 			try (ResultSet resultSet = p.executeQuery()) {
@@ -357,22 +357,6 @@ implements Serializable {
 				skillInstances.add(new SkillInstance(resultSet.getLong(1)));
 			}
 			return skillInstances;
-		}
-
-		public class Tutor {
-			private long idTutor;
-
-			private Tutor(User user, long idTutor) {
-				this.idTutor = idTutor;
-			}
-
-			public User getUser() {
-				return User.this;
-			}
-
-			public long getId() {
-				return this.idTutor;
-			}
 		}
 	}
 }

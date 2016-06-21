@@ -12,8 +12,12 @@ extends Table
 implements Serializable {
     private static final long serialVersionUID = -6897970698021020513L;
 
-    public Skill(long idSkill) {
+    private Skill(long idSkill) {
         super("skill", idSkill);
+    }
+    
+    public static Skill getSkill(long idSkill) {
+    	return new Skill(idSkill);
     }
 
     public static Skill addSkill(SkillGroup skillGroup, String description) throws SQLException {
