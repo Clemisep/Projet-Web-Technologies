@@ -138,18 +138,7 @@
 		</div>
 		<!-- /.box-body -->
 	</div>
-	<div ng-show="skmCtrl.show" class="box box-primary">
-		<br>
-		<form>
-			<label>Nouveau Type d'APP : </label> <input type="text"
-				ng-model="skmCtrl.skillInput"> <br> <br> <label>Nouvelle
-				sous-compétence : </label> <input type="text"
-				ng-model="skmCtrl.subSkillInput"> <br> <br> <input
-				type="button" class="btn btn-sm btn-info btn-flat pull-left"
-				value="Ajouter une sous-compétence" ng-click="skmCtrl.addSubSkill()" />
-			<br> <br>
-		</form>
-	</div>
+	
 
 	<div></div>
 
