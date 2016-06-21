@@ -54,8 +54,7 @@
         </div>
 
         <div><a href="" class="btn btn-sm btn-info btn-flat pull-left">Modifier compétence</a></div>
-        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left" ng-click="skmCtrl.showPanel()">Ajouter compétence</a></div>
-
+       
     </div>
 </body>
 
