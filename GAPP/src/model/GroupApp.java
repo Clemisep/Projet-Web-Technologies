@@ -14,8 +14,12 @@ public class GroupApp
 extends Table {
     private static final long serialVersionUID = -2752434798960535732L;
 
-    public GroupApp(long id) {
+    private GroupApp(long id) {
         super("group_app", id);
+    }
+    
+    public static GroupApp getGroupApp(long id) {
+    	return new GroupApp(id);
     }
 
     public void addStudent(User.Student student) throws SQLException {

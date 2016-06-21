@@ -41,6 +41,7 @@
 <script src="plugins/fullcalendar/fullcalendar.min.js"></script>
 
 <!-- JavaScript -->
+<script src="javaScript/ajax.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
 <script src="javaScript/app.module.js"></script>
@@ -62,7 +63,7 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-
+{{ incCtrl.template }}
 	<div hidden id="default_redirect">
 		<% 
 		   	String redirect = (String) session.getAttribute("redirect");
@@ -198,7 +199,9 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 								ng-click="incCtrl.redirect('skill/skill_assigner')"> <i
 									class="fa fa-circle-o"></i> Compétences élèves
 							</a></li>
-
+							<li><a href="#" onclick="include_in('views/view_group.jsp?test=truc', 'corps')"> <i
+									class="fa fa-circle-o"></i> Test
+							</a></li>
 						</ul></li>
 
 
@@ -228,7 +231,7 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 
 
 				<!-- Your Page Content Here -->
-				<div ng-include="incCtrl.template"></div>
+				<div id="corps" ng-include="incCtrl.template"></div>
 
 			</section>
 		</div>
