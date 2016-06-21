@@ -31,7 +31,7 @@
 	List<User.Student> students = User.findStudents(param);
 	for(int i=0 ; i<students.size() ; i++) {
 		User user = students.get(i).getUser();%>
-    		<tr>
+    		<tr style="cursor:pointer" onclick="include_in_dynamic('views/profile.jsp?id_user=<%= user.getId() %>')">
     			<td><%= user.getId() %></td>
     			<td><%= user.getLastName() %></td>
     			<td><%= user.getFirstName() %></td>

@@ -106,7 +106,7 @@
 	String param = "";
 								List<KindOfApp> kindOfApps = KindOfApp.getKindOfApps();
 	for(KindOfApp kindOfApp : kindOfApps) {
-%>								<tr>
+%>								<tr onclick="include_in_dynamic('views/view_kind_of_app.jsp?id_kind_of_app=<%= kindOfApp.getId() %>')" style="cursor:pointer">
 									<td><%= kindOfApp.getName() %></td>
 									
 									<td><%= kindOfApp.getDescription() %></td>

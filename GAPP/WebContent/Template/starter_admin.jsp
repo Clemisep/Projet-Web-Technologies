@@ -111,7 +111,7 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 								<!-- Menu Footer-->
 								<li class="user-footer">
 									<div class="pull-left">
-										<a href="#" ng-click="incCtrl.redirect('profile')"
+										<a href="#" onclick="include_in_dynamic('views/profile.jsp?id_user=<%= request.getSession().getAttribute("id_user") %>')"
 											class="btn btn-default btn-flat">Profil</a>
 									</div>
 									<div class="pull-right">

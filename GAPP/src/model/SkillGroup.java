@@ -18,18 +18,14 @@ extends Table {
         super("skill_group", id);
     }
     
-    public void addAssocKindOfApp(KindOfApp kindOfApp) throws SQLException {
-    	try(PreparedStatement p = Utils.prepareStatement(
-    			"INSERT INTO assoc_kind_of_app_skill_group(id_kind_of_app, id_skill_group) VALUES(?,?)")) {
-	    	p.setLong(1, kindOfApp.getId());
-	    	p.setLong(2, getId());
-	    	p.executeUpdate();
-    	}
+    public String getDescription() throws SQLException {
+    	return getAttrString("description");
     }
 
-    public static SkillGroup addSkillGroup(String name) throws SQLException {
-        PreparedStatement p = Utils.prepareStatementWithKey("INSERT INTO skill_group(description) VALUES(?)");
-        p.setString(1, name);
+    public static SkillGroup addSkillGroup(String name, KindOfApp kindOfApp) throws SQLException {
+        PreparedStatement p = Utils.prepareStatementWithKey("INSERT INTO skill_group(id_kind_of_app, description) VALUES(?, ?)");
+        p.setLong(1, kindOfApp.getId());
+        p.setString(2, name);
         p.executeUpdate();
         long key = Utils.getKey(p);
         p.close();
@@ -42,7 +38,7 @@ extends Table {
         p.setLong(1, this.getId());
         ResultSet resultSet = p.executeQuery();
         while (resultSet.next()) {
-            skills.add(new Skill(resultSet.getLong(1)));
+            skills.add(Skill.getSkill(resultSet.getLong(1)));
         }
         return skills;
     }

@@ -50,6 +50,7 @@ public class Connection extends HttpServlet {
 			
 			if(password != null && !password.equals("") && user != null && CryptWithMD5.cryptWithMD5(password).equals(user.getEncryptedPassword())) {
 				
+				session.setAttribute("id_user", user.getId());
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("password", password);
 				 response.sendRedirect("Template/starter_admin.jsp");

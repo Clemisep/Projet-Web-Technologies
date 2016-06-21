@@ -19,71 +19,67 @@
 					<div class="col-sm-12">
 	<table class="table table-bordered table-hover dataTable">				
 <%
-	String pseudo = (String) session.getAttribute("pseudo");
-	if (pseudo == null) {
+
+	String id_user = request.getParameter("id_user");
+	if (id_user == null) {
 %>
 Cette page n'existe pas.
 <%
 	} else {
-		User user = User.findUser(pseudo);
-		if (user == null) {
-%>
-Cette page n'existe pas.
-<%
-	} else {
+		User user = User.getUser(Long.parseLong(id_user));
+		
 		%>
 		
 		<td>Nom :  <%= user.getLastName() %> <tr>
 		<td>Prénom : <%= user.getFirstName() %> <tr>
 	<td>Date de naissance : <%= user.getBirthDate() %><tr>
 		
-		 <td>Rôles :
-		
+	 <td>Rôles :
+	
+	<%
+	User.Student student = user.extractStudent();
+	if(student != null) {
+		%>
+		<p>
+		Étudiant :<br/>
+		Numéro d'étudiant : <%= student.getStudentId() %><br/>
+		Groupe d'APP : <%= student.getGroupApp() %><br/>
+		Compétences :<br/>
+		<% List<SkillInstance> skillInstances = student.getSkillInstances();
+		for(SkillInstance skillInstance : skillInstances) {
+		%>
+		Compétence : <%= skillInstance.getSkill().getDescription() %>
+		Niveau acquis : <%= skillInstance.getLevel() %>
+		</p>
 		<%
-		User.Student student = user.extractStudent();
-		if(student != null) {
-			%>
-			<p>
-			Étudiant :<br/>
-			Numéro d'étudiant : <%= student.getStudentId() %><br/>
-			Groupe d'APP : <%= student.getGroupApp() %><br/>
-			Compétences :<br/>
-			<% List<SkillInstance> skillInstances = student.getSkillInstances();
-			for(SkillInstance skillInstance : skillInstances) {
-			%>
-			Compétence : <%= skillInstance.getSkill().getDescription() %>
-			Niveau acquis : <%= skillInstance.getLevel() %>
-			</p>
-			<%
-			}
 		}
-		
-		User.Admin admin = user.extractAdmin();
-		if(admin != null) {
-			%>
-			<p>
-			Administrateur
-			</p>
-			<%
-		}
-		
-		User.Responsible responsible = user.extractResponsible();
-		if(responsible != null) {
-			%>
-			<p>
-			Responsable
-			</p>
-			<%
-		}
-		
-		User.Tutor tutor = user.extractTutor();
-		if(tutor != null) {
-			%>
-			<p>
-			Tuteur
-			</p> <tr>
-			<%
-		}
+	}
+	
+	User.Admin admin = user.extractAdmin();
+	if(admin != null) {
+		%>
+		<p>
+		Administrateur
+		</p>
+		<%
+	}
+	
+	User.Responsible responsible = user.extractResponsible();
+	if(responsible != null) {
+		%>
+		<p>
+		Responsable
+		</p>
+		<%
+	}
+	
+	User.Tutor tutor = user.extractTutor();
+	if(tutor != null) {
+		%>
+		<p>
+		Tuteur
+		</p> <tr>
+		<%
 	}
 }
 %>

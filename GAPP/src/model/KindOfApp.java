@@ -42,6 +42,7 @@ extends Table {
     	LinkedList<SkillGroup> skillGroups = new LinkedList<>();
     	try(PreparedStatement p = 
     			Utils.prepareStatement("SELECT id_skill_group FROM skill_group WHERE id_kind_of_app = ?")) {
+    		p.setLong(1, getId());
 	    	try(ResultSet resultSet = p.executeQuery()) {
 		    	while(resultSet.next()) {
 		    		skillGroups.add(new SkillGroup(resultSet.getLong(1)));

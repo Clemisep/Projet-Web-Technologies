@@ -21,6 +21,10 @@ implements Serializable {
 	private User(long id) {
 		super("user", id);
 	}
+	
+	public static User getUser(long id) {
+		return new User(id);
+	}
 
 	public static List<User> findUsers(String start) throws SQLException {
 		LinkedList<User> users = new LinkedList<User>();
