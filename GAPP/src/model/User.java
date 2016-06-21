@@ -129,16 +129,15 @@ implements Serializable {
 		setAttrString("password", CryptWithMD5.cryptWithMD5(password));
 	}
 
-	public static User addUser(String pseudo, String firstName, String lastName, Date birthDate, String password, String picture) throws SQLException {
+	public static User addUser(String pseudo, String firstName, String lastName, Date birthDate, String password) throws SQLException {
 		long key;
 		try (PreparedStatement p = Utils.prepareStatementWithKey(
-				(String)"INSERT INTO user(pseudo, first_name, last_name, birth_date, password, picture) VALUES(?, ?, ?, ?, ?,?)")) {
+				(String)"INSERT INTO user(pseudo, first_name, last_name, birth_date, password) VALUES(?, ?, ?, ?, ?)")) {
 			p.setString(1, pseudo);
 			p.setString(2, firstName);
 			p.setString(3, lastName);
 			p.setDate(4, birthDate);
 			p.setString(5, CryptWithMD5.cryptWithMD5(password));
-			p.setString(6, picture);
 			p.executeUpdate();
 			key = Utils.getKey((PreparedStatement)p);
 		}

@@ -51,11 +51,10 @@ extends HttpServlet {
     	
     	String password = request.getParameter("password");
     	String password2 = request.getParameter("password2");
-    	String picture = request.getParameter("picture");
     	
     	if(validate(password) && password.equals(password2)) {    	
         try {
-        	User user = User.addUser(pseudo,firstname,lastname, x,password, picture);
+        	User user = User.addUser(pseudo,firstname,lastname, x,password);
             for (String role : roles) {
 				switch(role) {
 				case "tutor":

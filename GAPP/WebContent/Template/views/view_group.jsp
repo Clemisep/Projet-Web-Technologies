@@ -22,7 +22,7 @@
 					String student_id = request.getParameter("student_id");
 					if(student_id != null) {
 						groupApp.addStudent(User.getStudentByStudentId(Long.parseLong(student_id)));
-						request.getSession().setAttribute("redirect", "views/view_group.jsp");
+						request.getSession().setAttribute("redirect", "views/view_group.jsp?id_group="+id_group);
 			    		response.sendRedirect("../starter_admin.jsp");
 					} else {
 					
@@ -57,8 +57,8 @@
             </div>
             
             <div class="box-body">
-            <form action="views/view_group.jsp?id_group=<%= id_group %>" method="post" >
-              
+            <form action="views/view_group.jsp" method="post" >
+              <input hidden type="number" id="id_group" name="id_group" value="<%= id_group %>">
                 <label>Numéro d'étudiant</label> <input type="number" id="student_id" name="student_id" >
                 <br>
                 <div >

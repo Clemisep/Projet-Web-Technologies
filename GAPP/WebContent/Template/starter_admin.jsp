@@ -151,7 +151,7 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 				<ul class="sidebar-menu">
 					<li class="header">Menu</li>
 					<!-- Optionally, you can add icons to the links -->
-					<li><a href="#" ng-click="incCtrl.redirect('student')"> <span>Élèves</span>
+					<li><a href="#" onclick="include_in_dynamic('views/student.jsp')"> <span>Élèves</span>
 					</a></li>
 
 
@@ -165,10 +165,10 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 						<ul class="treeview-menu">
 
 							<li><a href="#"
-								ng-click="incCtrl.redirect('skill/app_manager')"><i
+								onclick="include_in_dynamic('views/skill/app_manager.jsp')"><i
 									class="fa fa-circle-o"></i> Type d'APP </a></li>
 
-							<li><a href="#" ng-click="incCtrl.redirect('group')"> <i
+							<li><a href="#" onclick="include_in_dynamic('views/group.jsp')"> <i
 									class="fa fa-circle-o"></i> Gestion des groupes
 							</a></li>
 
@@ -181,11 +181,11 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 
 						<ul class="treeview-menu">
 							<li><a href="#"
-								ng-click="incCtrl.redirect('skill/skill_manager')"> <i
+								onclick="include_in_dynamic('views/skill/skill_manager.jsp')"> <i
 									class="fa fa-circle-o"></i> Famille de compétences
 							</a></li>
 							<li><a href="#"
-								ng-click="incCtrl.redirect('skill/skill_assigner')"> <i
+								onclick="include_in_dynamic('views/skill/skill_assigner.jsp')"> <i
 									class="fa fa-circle-o"></i> Compétences élèves
 							</a></li>
 							<li><a href="#" onclick="include_in('views/view_group.jsp?test=truc', 'corps')"> <i
@@ -196,14 +196,14 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 
 
 					<li><a href="#"
-						ng-click="incCtrl.redirect('calendar/hyperplanning')"> <span>Hyperplanning</span>
+						onclick="include_in_dynamic('views/calendar/hyperplanning.jsp')"> <span>Hyperplanning</span>
 					</a></li>
 
 					<% 
                     if(pseudo != null) {
                     User user = User.findUser((String)pseudo);
                     if(user.extractAdmin() != null) { %>
-					<li><a href="#" ng-click="incCtrl.redirect('add_user')"> <span>Ajouter
+					<li><a href="#" onclick="include_in_dynamic('views/add_user.jsp')"> <span>Ajouter
 								utilisateur</span>
 					</a></li>
 					<% }} %>
