@@ -22,7 +22,29 @@
 				</div>
 				<input type="text" class="form-control" id="group_name"
 					name="group_name" required>
+
 			</div>
+			</br>
+			
+			<label> Sélectionner le tuteur</label>
+			
+				<select class="form-control" id="id_tutor"
+						name="id_tutor" required>
+						<%
+                  List<User.Tutor> tutors =  User.getAllTutors();
+                 for (User.Tutor tutor : tutors) {
+                %>
+
+						<option value="<%= tutor.getId() %>">
+							<%= tutor.getUser().getLastName()%>
+							<%= tutor.getUser().getFirstName()%>
+						</option>
+						<%
+                 }
+                 %>
+
+					</select>
+			
 			<!-- /.input group -->
 		</div>
 		</br>
@@ -32,14 +54,13 @@
 		</div>
 
 
-		<label> Type d'APP </label> <select class="form-control" id="kind_of_app"
-			name="kind_of_app" required>
+		<label> Type d'APP </label> <select class="form-control" id="id_kind_of_app"
+			name="id_kind_of_app" required>
 			<%
-			List<KindOfApp> kinds_of_app=  KindOfApp.getKindOfApps();
-                 for (KindOfApp kind_of_app : kinds_of_app) {
+                 for (KindOfApp kind_of_app : KindOfApp.getKindOfApps()) {
                 %>
 
-			<option>
+			<option value="<%= kind_of_app.getId() %>">
 				<%= kind_of_app.getName() %>
 				
 			</option>
@@ -49,7 +70,7 @@
 
 		</select>
 
-
+</br>
 
 		<div>
 			<input type="submit" class="btn btn-danger" id="envoie">

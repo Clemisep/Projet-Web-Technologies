@@ -220,7 +220,7 @@ implements Serializable {
 	}
 
 	public static User.Tutor getTutor(long idTutor) throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_tutor FROM tutor WHERE id_tutor = ?");
+		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_tutor = ?");
 		p.setLong(1, idTutor);
 		ResultSet resultSet = p.executeQuery();
 		resultSet.next();

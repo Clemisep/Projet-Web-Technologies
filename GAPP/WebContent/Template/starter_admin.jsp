@@ -63,7 +63,7 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
 
-	<div id="default_redirect" style="display: hidden;">
+	<div hidden id="default_redirect">
 		<% 
 		   	String redirect = (String) session.getAttribute("redirect");
 		    if(redirect == null) redirect = "views/student.jsp";
@@ -166,12 +166,21 @@
 					<!-- Optionally, you can add icons to the links -->
 					<li><a href="#" ng-click="incCtrl.redirect('student')"> <span>Élèves</span>
 					</a></li>
-					<li><a href="#"> <span>Groupes</span>
+					<li><a href="#"> <span> APP et Groupes</span>
 					</a>
 						<ul class="treeview-menu">
+
+							<li><a href="#"
+								ng-click="incCtrl.redirect('skill/app_manager')"><i
+									class="fa fa-circle-o"></i> Type d'APP </a></li>
+
 							<li><a href="#" ng-click="incCtrl.redirect('group')"> <i
-									class="fa fa-circle-o"></i> Afficher les groupes
+									class="fa fa-circle-o"></i> Gestion des groupes
 							</a></li>
+
+
+
+
 						</ul></li>
 					<li><a href="#"> <span>Compétences</span>
 					</a>
@@ -187,10 +196,8 @@
 							</a></li>
 
 						</ul></li>
-					
-					<li><a href="#"
-						ng-click="incCtrl.redirect('skill/app_manager')"> </i> Type d'APP
-					</a></li>
+
+
 
 					<li><a href="#"
 						ng-click="incCtrl.redirect('calendar/hyperplanning')"> <span>Hyperplanning</span>

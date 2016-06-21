@@ -62,6 +62,10 @@ extends Table {
     	return new GroupApp(key);
     }
     
+    public static GroupApp addGroupApp(User.Tutor tutor, String name, KindOfApp kindOfApp) throws SQLException {
+    	return addGroupApp(tutor.getId(), name, kindOfApp);
+    }
+    
     public String getName() throws SQLException {
     	return getAttrString("name");
     }
