@@ -22,15 +22,16 @@ import model.User;
 public class AddApp
 extends HttpServlet {
     private static final long serialVersionUID = 1;
-    private static final String PASSWORD_PATTERN ="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String[] Type = request.getParameterValues("Type");
-    	String responsable = request.getParameter("responsable");
+    	String[] type = request.getParameterValues("type");
+    	String id_tutor = request.getParameter("id_tutor");
+    	String name = request.getParameter("name");
+    	String id_group_app = request.getParameter("id_group_app");
     	
     	
     	

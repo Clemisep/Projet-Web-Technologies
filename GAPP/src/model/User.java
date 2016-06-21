@@ -170,15 +170,28 @@ implements Serializable {
 		p.close();
 		return new Student(idStudent);
 	}
-
-	public List<Student> getAllStudents() throws SQLException {
-		LinkedList<Student> students = new LinkedList<Student>();
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_student FROM student");
+	
+	public static List<User> getAllUsers() throws SQLException {
+		LinkedList<User> users = new LinkedList<>();
+		PreparedStatement p = Utils.prepareStatement("SELECT id_user FROM user");
 		ResultSet resultSet = p.executeQuery();
-		while (resultSet.next()) {
-			students.add(new Student(resultSet.getLong(1)));
+		while(resultSet.next()) {
+			users.add(new User(resultSet.getLong(1)));
 		}
-		return students;
+		return users;
+	}
+	
+	public static List<Responsible> getAllResponsibles() throws SQLException {
+		
+		LinkedList<Responsible> responsibles = new LinkedList<Responsible>();
+		
+		for (User user : getAllUsers()) {
+			Responsible responsible = user.extractResponsible();
+			if(responsible != null)
+				responsibles.add(responsible);
+		}
+		
+		return responsibles;
 	}
 
 	public static Student getStudent(long idStudent) throws SQLException {
@@ -209,7 +222,10 @@ implements Serializable {
 		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO admin() VALUES()");
 		p.executeUpdate();
 		long idAdmin = Utils.getKey((PreparedStatement)p);
+		setAttrLong("is_admin", 1);
+		setAttrLong("id_admin", idAdmin);
 		p.close();
+		
 		return new Admin(idAdmin);
 	}
 
@@ -241,6 +257,8 @@ implements Serializable {
 		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO responsible() VALUES()");
 		p.executeUpdate();
 		long idResponsible = Utils.getKey((PreparedStatement)p);
+		setAttrLong("is_responsible", 1);
+		setAttrLong("id_responsible", idResponsible);
 		p.close();
 		return new Responsible(idResponsible);
 	}
@@ -263,6 +281,9 @@ implements Serializable {
 		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO tutor() VALUES()");
 		p.executeUpdate();
 		long idTutor = Utils.getKey((PreparedStatement)p);
+		setAttrLong("is_tutor", 1);
+		setAttrLong("id_tutor", idTutor);
+		
 		p.close();
 		return new Tutor(idTutor);
 	}

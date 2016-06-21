@@ -48,4 +48,19 @@ extends Table {
         p.close();
         return groups;
     }
+    
+    public void addApp (long id_tutor, String name, long id_group_app ){
+    	long key;
+    	try (PreparedStatement p = Utils.prepareStatementWithKey(
+				(String)"INSERT INTO group_app(id_tutor, name, id_group_app) VALUES(?, ?, ?)")) {
+			p.setLong(1, id_tutor);
+			p.setString(2, name);
+			p.setLong(3, id_group_app);
+			p.executeUpdate();
+			key = Utils.getKey((PreparedStatement)p);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }
