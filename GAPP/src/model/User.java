@@ -193,6 +193,21 @@ implements Serializable {
 		
 		return responsibles;
 	}
+	
+	
+public static List<Tutor> getAllTutors() throws SQLException {
+		
+		LinkedList<Tutor> tutors = new LinkedList<Tutor>();
+		
+		for (User user : getAllUsers()) {
+			Tutor tutor = user.extractTutor();
+			if(tutor != null)
+				tutors.add(tutor);
+		}
+		
+		return tutors;
+	}
+	
 
 	public static Student getStudent(long idStudent) throws SQLException {
 		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_student = ?");

@@ -8,6 +8,7 @@ import java.util.List;
 
 import model.Table;
 import model.User;
+import model.User.Responsible;
 
 public class KindOfApp
 extends Table {
@@ -15,6 +16,10 @@ extends Table {
 
     public KindOfApp(long idGroup) {
         super("group", idGroup);
+    }
+    
+    public String getName() throws SQLException {
+    	return getAttrString("name");
     }
 
     public User.Responsible getResponsible() throws SQLException {
@@ -48,5 +53,22 @@ extends Table {
         resultSet.close();
         p.close();
         return kinds;
+    }
+    
+    public static KindOfApp addKindOfApp (String name, String description, long id_responsible) throws SQLException{
+    	long key;
+    	try (PreparedStatement p = Utils.prepareStatementWithKey(
+				(String)"INSERT INTO kind_of_app(id_responsible, name, description) VALUES(?, ?, ?)")) {
+			p.setLong(1, id_responsible);
+			p.setString(2, name);
+			p.setString(3, description);
+			p.executeUpdate();
+			key = Utils.getKey((PreparedStatement)p);
+			return new KindOfApp(key);
+		}
+    }
+    
+    public static KindOfApp addKindOfApp (String name, String description, User.Responsible responsible) throws SQLException{
+    	return addKindOfApp(name, description, responsible.getId());
     }
 }

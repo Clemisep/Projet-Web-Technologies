@@ -5,11 +5,14 @@
         .module('app', [])
         .controller('include', include);
 
+    
     function include() {
         /*jshint validthis:true*/
         var vm = this;
 
-        vm.template = 'views/student.jsp';
+        var default_redirect = document.getElementById('default_redirect').innerHTML;
+        
+        vm.template = default_redirect;
 
         vm.redirect = redirect;
 

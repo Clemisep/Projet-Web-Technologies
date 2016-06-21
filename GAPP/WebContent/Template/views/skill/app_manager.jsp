@@ -8,24 +8,14 @@
 	<br>
 	<br>
 	<div>
-
-
-
-
-
-
-
 		<form action="http://localhost:8080/GAPP/AddApp" method="post">
-
-
-
 			<div class="form-group">
 				<label>Type d'APP</label>
 				<div class="input-group">
 					<div class="input-group-addon">
 						<i class="fa fa-file-picture-o"></i>
 					</div>
-					<input type="text" class="form-control" id="type" name="type"
+					<input type="text" class="form-control" id="name" name="name"
 						required>
 				</div>
 				<!-- /.input group -->
@@ -41,14 +31,14 @@
 
 
 
-					<select class="form-control" id="id_tutor" name="id_tutor"
+					<select class="form-control" id="id_responsible" name="id_responsible"
 						required>
 						<%
-                  List<User.Responsible> responsibles=  User.getAllResponsibles();
+                  List<User.Responsible> responsibles =  User.getAllResponsibles();
                  for (User.Responsible responsible : responsibles) {
                 %>
 
-						<option>
+						<option value="<%= responsible.getId() %>">
 							<%= responsible.getUser().getLastName()%>
 							<%= responsible.getUser().getFirstName()%>
 						</option>
@@ -62,12 +52,12 @@
 			</div>
 
 			<div class="form-group">
-				<label>Responsable APP</label>
+				<label>Description</label>
 				<div class="input-group">
 					<div class="input-group-addon">
 						<i class="fa fa-user"></i>
 					</div>
-					<input type"text" id="id_group_app" name="id_group_app">
+					<input type="text" id="description" name="description">
 				</div>
 				<!-- /.input group -->
 			</div>

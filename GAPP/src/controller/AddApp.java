@@ -1,22 +1,15 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
+
+import model.KindOfApp;
 
 @WebServlet("/AddApp")
 public class AddApp
@@ -28,14 +21,18 @@ extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String[] type = request.getParameterValues("type");
-    	String id_tutor = request.getParameter("id_tutor");
+    	long id_responsible = Long.parseLong(request.getParameter("id_responsible"));
     	String name = request.getParameter("name");
-    	String id_group_app = request.getParameter("id_group_app");
+    	String description = request.getParameter("description");
     	
-    	
-    	
-    	
+    	try {
+			KindOfApp.addKindOfApp(name, description, id_responsible);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	request.getSession().setAttribute("redirect", "views/skill/skill_manager.jsp");
+    	response.sendRedirect("Template/starter_admin.jsp");
     	
     }
 }

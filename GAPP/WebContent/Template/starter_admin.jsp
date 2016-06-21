@@ -54,6 +54,16 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+
+<div id="default_redirect" style="display:hidden;"><% 
+		   	String redirect = (String) session.getAttribute("redirect");
+		    if(redirect == null) redirect = "views/student.jsp";
+		    session.setAttribute("redirect", null);
+		    
+		    %>
+		 
+		    <%= redirect %></div>
+
     <div class="wrapper">
         <header class="main-header">
 
@@ -172,7 +182,7 @@
                                 <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
                             </li>
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('skill/app_manager')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
+                                <a href="#" ng-click="incCtrl.redirect('skill/app_manager')"> <i class="fa fa-circle-o"></i> Type d'APP</a>
                             </li>
                         </ul>
                     </li>
@@ -207,6 +217,8 @@
         <div class="content-wrapper">
             <section class="content">
 
+				
+
                 <!-- Your Page Content Here -->
                 <div ng-include="incCtrl.template">
 
@@ -223,5 +235,6 @@
         </footer>
     </div>
 </body>
+
 
 </html>

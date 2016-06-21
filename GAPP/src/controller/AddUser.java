@@ -83,7 +83,8 @@ extends HttpServlet {
         }
     	}else {
     		log("Password is not correct or passwords do not match");
-    		response.sendRedirect("Template/add_user.jsp");
+    		request.getSession().setAttribute("redirect", "views/add_user.jsp");
+    		response.sendRedirect("Template/starter_admin.jsp");
     	}
     }
     
