@@ -155,10 +155,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <a href="#" ng-click="incCtrl.redirect('group/group_manager')"> <i class="fa fa-circle-o"></i> Gérer les groupes</a>
-                            </li>
-                            <li>
-                                <a href="#" ng-click="incCtrl.redirect('group/group_displayer')"> <i class="fa fa-circle-o"></i> Afficher les groupes</a>
+                                <a href="#" ng-click="incCtrl.redirect('group')"> <i class="fa fa-circle-o"></i> Afficher les groupes</a>
                             </li>
                         </ul>
                     </li>

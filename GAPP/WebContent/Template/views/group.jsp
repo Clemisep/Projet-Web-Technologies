@@ -7,6 +7,41 @@
     <h1>
     Groupes
     </h1>
+
+
+
+
+<form action="http://localhost:8080/GAPP/NewGroup" method="post">
+
+
+
+			<div class="form-group">
+				<label>Nom du Groupe</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="fa fa-file-picture-o"></i>
+					</div>
+					<input type="text" class="form-control" id="group_name" name="group_name"
+						required>
+				</div>
+				<!-- /.input group -->
+			</div> </br>
+
+				</div>
+				<!-- /.input group -->
+			</div>
+
+			<div>
+				<input type="submit" class="btn btn-danger" id="envoie">
+			</div>
+
+
+		</form>
+
+
+
+
+
     <div class="box">
         <!-- /.box-header -->
         <div class="box-body">
@@ -18,7 +53,6 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        
                                 <%
 									for(GroupApp group : GroupApp.getGroups()) {
 										%>
@@ -44,6 +78,7 @@
 										<%
 									}
 								%>
+								
                     </div>
                 </div>
             </div>
