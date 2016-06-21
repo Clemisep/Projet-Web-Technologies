@@ -57,7 +57,7 @@
 					<div class="input-group-addon">
 						<i class="fa fa-user"></i>
 					</div>
-					<textarea type="text" id="description" name="description"> Description de l'APP</textarea>
+					<textarea type="text" id="description" name="Description de l'App" placeholder="description"></textarea>
 				</div>
 				<!-- /.input group -->
 			</div>
@@ -95,7 +95,7 @@
 
 
 
-						<table id="table2" class="mytable filterable">
+						<table id="table2" class="table table-bordered table-hover dataTable">
 							<thead>
 								<th>Nom APP</th>
 								

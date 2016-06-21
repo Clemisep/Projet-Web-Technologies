@@ -72,6 +72,19 @@
 		    %>
 
 		<%= redirect %></div>
+		
+		<% 
+String addrImg = "";
+Object pseudo = session.getAttribute("pseudo");
+if(pseudo != null) {
+User user = User.findUser((String)pseudo);
+if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResponsible() != null ) {
+	addrImg = "img/admin.png";
+} else if(user.extractStudent() != null) {
+	addrImg = "img/icone_eleve.png";
+}
+}
+	%>
 
 	<div class="wrapper">
 		<header class="main-header">
@@ -95,25 +108,21 @@
 						<li class="dropdown user user-menu">
 							<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"> <!-- The user image in the navbar-->
-								<img src="http://perso.isep.fr/msellami/images/moi.JPG"
+								<img src="<%= addrImg %>"
 								class="user-image" alt="User Image"> <!-- hidden-xs hides the username on small devices so only the image appears. -->
 								<span class="hidden-xs"><%= session.getAttribute("pseudo") %></span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
 								<li class="user-header"><img
-									src="http://perso.isep.fr/msellami/images/moi.JPG"
-									class="img-circle" alt="User Image">
-
-									<p>
-										page accueil <small>Administrateur</small>
-									</p></li>
+									src="<%= addrImg %>"
+									class="img-circle" alt="User Image"></li>
 
 								<!-- Menu Footer-->
 								<li class="user-footer">
 									<div class="pull-left">
 										<a href="#" ng-click="incCtrl.redirect('profile')"
-											class="btn btn-default btn-flat">Profile</a>
+											class="btn btn-default btn-flat">Profil</a>
 									</div>
 									<div class="pull-right">
 										<a href="http://localhost:8080/GAPP/Logout"
@@ -135,7 +144,7 @@
 				<!-- Sidebar user panel -->
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="http://perso.isep.fr/msellami/images/moi.JPG"
+						<img src="<%= addrImg %>"
 							class="img-circle" alt="User Image">
 					</div>
 					<div class="pull-left info">
@@ -146,19 +155,7 @@
 					</div>
 				</div>
 
-				<!-- search form -->
-				<form action="#" method="get" class="sidebar-form">
-					<div class="input-group">
-						<input type="text" name="q" class="form-control"
-							placeholder="Élève/Groupe"> <span class="input-group-btn">
-							<button type="submit" name="search" id="search-btn"
-								class="btn btn-flat">
-								<i class="fa fa-search"></i>
-							</button>
-						</span>
-					</div>
-				</form>
-				<!--/.search form -->
+				
 
 				<!-- Sidebar Menu -->
 				<ul class="sidebar-menu">
@@ -166,6 +163,13 @@
 					<!-- Optionally, you can add icons to the links -->
 					<li><a href="#" ng-click="incCtrl.redirect('student')"> <span>Élèves</span>
 					</a></li>
+
+
+					<%
+                    if(pseudo != null) {
+                    User user = User.findUser((String)pseudo);
+                    if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResponsible() != null ) { %>
+                    
 					<li><a href="#"> <span> APP et Groupes</span>
 					</a>
 						<ul class="treeview-menu">
@@ -178,7 +182,7 @@
 									class="fa fa-circle-o"></i> Gestion des groupes
 							</a></li>
 
-
+							<% }} %>
 
 
 						</ul></li>
@@ -203,7 +207,7 @@
 						ng-click="incCtrl.redirect('calendar/hyperplanning')"> <span>Hyperplanning</span>
 					</a></li>
 
-					<% Object pseudo = session.getAttribute("pseudo");
+					<% 
                     if(pseudo != null) {
                     User user = User.findUser((String)pseudo);
                     if(user.extractAdmin() != null) { %>

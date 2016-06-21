@@ -16,8 +16,10 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
+                    
+              
         
-    <table id="table1" class="mytable filterable">
+    <table id="table1" class="table table-bordered table-hover dataTable">
     	<thead>
     		<th>Numéro élève</th>
     		<th>Nom</th>

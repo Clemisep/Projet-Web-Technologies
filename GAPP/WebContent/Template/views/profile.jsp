@@ -17,7 +17,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-					
+	<table class="table table-bordered table-hover dataTable">				
 <%
 	String pseudo = (String) session.getAttribute("pseudo");
 	if (pseudo == null) {
@@ -33,11 +33,11 @@ Cette page n'existe pas.
 	} else {
 		%>
 		
-		Nom : <%= user.getLastName() %><br/>
-		Prénom : <%= user.getFirstName() %><br/>
-		Date de naissance : <%= user.getBirthDate() %><br/>
+		<td>Nom :  <%= user.getLastName() %> <tr>
+		<td>Prénom : <%= user.getFirstName() %> <tr>
+	<td>Date de naissance : <%= user.getBirthDate() %><tr>
 		
-		Rôles :
+		 <td>Rôles :
 		
 		<%
 		User.Student student = user.extractStudent();
@@ -81,12 +81,13 @@ Cette page n'existe pas.
 			%>
 			<p>
 			Tuteur
-			</p>
+			</p> <tr>
 			<%
 		}
 	}
 }
 %>
+</table>
 					</div>
 				</div>
 			</div>

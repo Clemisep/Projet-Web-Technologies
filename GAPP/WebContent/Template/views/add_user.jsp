@@ -74,17 +74,9 @@
                
               </div>
               
-               <div class="form-group">
-                <label>photo de profil</label>
-
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-file-picture-o"></i>
-                  </div>
-                  <input type="file" class="btn btn-primary" id="picture" name="picture">
-                </div>
+              
                 
-                <div></div> <br>
+                <br>
                 
                 <label>L'utilisateur est :</label> <br>
                 <label><input type="checkbox" name="role" id="admin" value="admin"> Admin</label><br>
