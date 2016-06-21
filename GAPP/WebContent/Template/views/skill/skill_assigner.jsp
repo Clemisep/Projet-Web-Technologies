@@ -2,7 +2,7 @@
 <html>
 
 <body>
-    <h1>CompÃ©tences</h1>
+    <h1>Compétences</h1>
     <br>
     <br>
 
@@ -20,10 +20,10 @@
                         <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                             <thead>
                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="CompÃ©tences: activate to sort column descending">CompÃ©tence</th>
-                                    <th class="sorting" tabindex="1" aria-controls="example2" rowspan="1" colspan="1" aria-label="Niveau demandÃ©: activate to sort column ascending">Niveau demandÃ©</th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Compétences: activate to sort column descending">Compétence</th>
+                                    <th class="sorting" tabindex="1" aria-controls="example2" rowspan="1" colspan="1" aria-label="Niveau demandé activate to sort column ascending">Niveau demandé</th>
                                     <th class="sorting" tabindex="2" aria-controls="example2" rowspan="1" colspan="1" aria-label="Niveau atteint: activate to sort column ascending">Niveau atteint</th>
-                                    <th class="sorting" tabindex="3" aria-controls="example2" rowspan="1" colspan="1" aria-label="Commentaire Ã©lÃ¨ve: activate to sort column ascending">Commentaire Ã©lÃ¨ve</th>
+                                    <th class="sorting" tabindex="3" aria-controls="example2" rowspan="1" colspan="1" aria-label="Commentaire Elèves: activate to sort column ascending">Commentaire Elèves</th>
                                     <th class="sorting" tabindex="4" aria-controls="example2" rowspan="1" colspan="1" aria-label="Commentaire professeur: activate to sort column ascending">Commentaire Professeur</th>
                                 </tr>
                             </thead>
@@ -45,6 +45,9 @@
 
             </div>
         </div>
+
+        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left">Exporter grille de compétence</a></div>
+        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left">E‰diter grille de compétence</a></div>
         </br>
         </br>
         <!-- /.box-body -->

@@ -44,6 +44,8 @@ implements Serializable {
 			try (ResultSet resultSet = p.executeQuery()) {
 				resultSet.next();
 				user = new User(resultSet.getLong(1));
+			} catch(SQLException e) {
+				return null;
 			}
 		}
 		return user;
@@ -135,7 +137,7 @@ implements Serializable {
 			p.setString(2, firstName);
 			p.setString(3, lastName);
 			p.setDate(4, birthDate);
-			p.setString(5, password);
+			p.setString(5, CryptWithMD5.cryptWithMD5(password));
 			p.setString(6, picture);
 			p.executeUpdate();
 			key = Utils.getKey((PreparedStatement)p);
@@ -156,10 +158,11 @@ implements Serializable {
 		return null;
 	}
 
-	public Student becomeStudent(String studentId) throws SQLException {
+	public Student becomeStudent(String studentId, long promo) throws SQLException {
 		assert (this.extractStudent() == null);
-		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO student(student_id) VALUES(?)");
+		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO student(student_id, promo) VALUES(?,?)");
 		p.setString(1, studentId);
+		p.setLong(2, promo);
 		p.executeUpdate();
 		long idStudent = Utils.getKey((PreparedStatement)p);
 		this.setAttrLong("is_student", 1);

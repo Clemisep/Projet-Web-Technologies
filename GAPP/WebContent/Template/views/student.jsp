@@ -37,7 +37,7 @@
     		<% } %>
     	</tbody>
     </table>
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
 		//<![CDATA[
 			var tf = new TF('table1');
 			tf.AddGrid();

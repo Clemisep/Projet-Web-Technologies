@@ -2,7 +2,7 @@
 <html>
 
 <body>
-    <h1>CompÃ©tences</h1>
+    <h1>Compétences</h1>
     <br>
     <br>
     <div>
@@ -20,8 +20,8 @@
                                 <thead>
                                     <tr role="row">
                                         <th tabindex="0"><input type="checkbox" /></th>
-                                        <th class="sorting_asc" tabindex="1" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="skill: activate to sort column descending">CompÃ©tence</th>
-                                        <th class="sorting_asc" tabindex="2" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="subSkill: activate to sort column descending">Sous-compÃ©tence</th>
+                                        <th class="sorting_asc" tabindex="1" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="skill: activate to sort column descending">Compétence</th>
+                                        <th class="sorting_asc" tabindex="2" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="subSkill: activate to sort column descending">Sous-compétence</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,19 +42,19 @@
         <div ng-show="skmCtrl.show" class="box box-primary">
             <br>
             <form>
-                <label>Nouvelle compÃ©tence : </label>
+                <label>Nouvelle compétence : </label>
                 <input type="text" ng-model="skmCtrl.skillInput">
                 <br><br>
-                <label>Nouvelle sous-compÃ©tence : </label>
+                <label>Nouvelle sous-compétence : </label>
                 <input type="text" ng-model="skmCtrl.subSkillInput">
                 <br><br>
-                <input type="button" class="btn btn-sm btn-info btn-flat pull-left" value="Ajouter une sous-compÃ©tence" ng-click="skmCtrl.addSubSkill()"/>
+                <input type="button" class="btn btn-sm btn-info btn-flat pull-left" value="Ajouter une sous-compétence" ng-click="skmCtrl.addSubSkill()"/>
                 <br><br>
             </form>
         </div>
 
-        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left">Modifier compÃ©tence</a></div>
-        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left" ng-click="skmCtrl.showPanel()">Ajouter compÃ©tence</a></div>
+        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left">Modifier compétence</a></div>
+        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left" ng-click="skmCtrl.showPanel()">Ajouter compétence</a></div>
 
     </div>
 </body>

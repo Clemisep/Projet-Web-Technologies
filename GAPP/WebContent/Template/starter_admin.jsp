@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html ng-app="app" ng-controller="include as incCtrl">
 
@@ -47,7 +49,7 @@
 
 
     <!-- Tableau -->
-<script type="text/javascript" language="javascript" src="http://tablefilter.free.fr/TableFilter/tablefilter.js"></script>  
+<script type="text/javascript" src=/GAPP/WebContent/Template/javaScript/tablefilter.js></script>  
 	
 </head>
 
@@ -79,7 +81,7 @@
                                 <!-- The user image in the navbar-->
                                 <img src="http://perso.isep.fr/msellami/images/moi.JPG" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Mohammed Sellami</span>
+                                <span class="hidden-xs"><%= session.getAttribute("pseudo") %></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
@@ -98,7 +100,7 @@
                                         <a href="#" ng-click="incCtrl.redirect('views/profile')" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="http://localhost:8080/GAPP/Logout" class="btn btn-default btn-flat">Déconnexion</a>
                                     </div>
                                 </li>
                             </ul>
@@ -148,9 +150,17 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" ng-click="incCtrl.redirect('group')">
+                        <a href="#">
                             <span>Groupes</span>
                         </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="#" ng-click="incCtrl.redirect('group/group_manager')"> <i class="fa fa-circle-o"></i> Gérer les groupes</a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="incCtrl.redirect('group/group_displayer')"> <i class="fa fa-circle-o"></i> Afficher les groupes</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#">
@@ -163,6 +173,9 @@
                             </li>
                             <li>
                                 <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="incCtrl.redirect('skill/app_manager')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
                             </li>
                         </ul>
                     </li>
@@ -177,11 +190,16 @@
                         </a>
                     </li>
                     
+                    <% Object pseudo = session.getAttribute("pseudo");
+                    if(pseudo != null) {
+                    User user = User.findUser((String)pseudo);
+                    if(user.extractAdmin() != null) { %>
                     <li>
                         <a href="#" ng-click="incCtrl.redirect('add_user')">
                             <span>Ajouter utilisateur</span>
                         </a>
                     </li>
+                    <% }} %>
                     
                 </ul>
                 <!-- /.sidebar-menu -->

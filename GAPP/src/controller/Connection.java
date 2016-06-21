@@ -45,18 +45,19 @@ public class Connection extends HttpServlet {
 	       
 	    HttpSession session = request.getSession();
 		try {
-			User user = User.findUser(pseudo);
+			User user = null;
+			if(pseudo != null && !pseudo.equals("")) user = User.findUser(pseudo);
 			
-			if(CryptWithMD5.cryptWithMD5(password).equals(user.getEncryptedPassword())) {
+			if(password != null && !password.equals("") && user != null && CryptWithMD5.cryptWithMD5(password).equals(user.getEncryptedPassword())) {
 				
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("password", password);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("..\\Template\\starter_admin.jsp");
-				dispatcher.forward(request, response);
+				 response.sendRedirect("Template/starter_admin.jsp");
+				
 				
 			} else {
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("..\\Template\\login.jsp");
-				dispatcher.forward(request, response);
+				 response.sendRedirect("Template/login.jsp");
+			
 			}
 			
 		} catch (SQLException | NoSuchAlgorithmException e) {
