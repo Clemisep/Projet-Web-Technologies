@@ -31,7 +31,7 @@ extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	request.getSession().setAttribute("redirect", "views/skill/skill_manager.jsp");
+    	request.getSession().setAttribute("redirect", "views/skill/app_manager.jsp");
     	response.sendRedirect("Template/starter_admin.jsp");
     	
     }

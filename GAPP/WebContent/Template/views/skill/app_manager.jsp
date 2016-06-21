@@ -57,7 +57,7 @@
 					<div class="input-group-addon">
 						<i class="fa fa-user"></i>
 					</div>
-					<textarea type="text" id="description" name="Description de l'App" placeholder="description"></textarea>
+					<textarea type="text" id="description" name="description"> Description de l'APP</textarea>
 				</div>
 				<!-- /.input group -->
 			</div>
