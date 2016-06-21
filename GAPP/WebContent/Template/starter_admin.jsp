@@ -164,6 +164,9 @@
                             <li>
                                 <a href="#" ng-click="incCtrl.redirect('skill/skill_assigner')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
                             </li>
+                            <li>
+                                <a href="#" ng-click="incCtrl.redirect('skill/app_manager')"> <i class="fa fa-circle-o"></i> Compétences élèves</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
