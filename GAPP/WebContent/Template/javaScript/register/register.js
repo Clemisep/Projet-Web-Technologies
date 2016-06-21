@@ -13,6 +13,9 @@
 
         vm.result = [];
         
+        vm.result1 = [];
+        vm.result2 = [];
+        
         vm.compare = compare;
         vm.validatePassword = validatePassword;
         
@@ -21,8 +24,10 @@
             return vm.result1;
         }
         function validatePassword(password){
-        	vm.result2 = passwordValidator.compare(password1, password2);
-        	return vm.result2;
+        	var resulta = passwordValidator.validLength(password1);
+        	var resultb = passwordValidator.validPattern(password1);
+        	vm.result2 = resulta && resultb;
+        	return result2;
         }
 
     }
