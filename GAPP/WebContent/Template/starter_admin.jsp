@@ -46,7 +46,6 @@
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
 <script src="javaScript/app.module.js"></script>
 <!-- Controllers -->
-<script src="javaScript/include.js"></script>
 <script src="javaScript/register/register.js"></script>
 <!--<script src="javaScript/skillManager.spec.js"></script>-->
 <!--<script src="javaScript/getStudent.spec.js"></script>-->
@@ -55,24 +54,14 @@
 <script src="javaScript/register/passwordValidator.factory.js"></script>
 <!--<script src="javaScript/getStudent.factory.spec.js"></script>-->
 
-
-<!-- Tableau -->
-<script type="text/javascript"
-	src=/GAPP/WebContent/Template/javaScript/tablefilter.js></script>
-
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 {{ incCtrl.template }}
-	<div hidden id="default_redirect">
-		<% 
+	<div hidden id="default_redirect"><% 
 		   	String redirect = (String) session.getAttribute("redirect");
 		    if(redirect == null) redirect = "views/student.jsp";
-		    session.setAttribute("redirect", null);
-		    
-		    %>
-
-		<%= redirect %></div>
+		    session.setAttribute("redirect", null);%><%= redirect %></div>
 		
 		<% 
 String addrImg = "";
@@ -228,11 +217,11 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 		<div class="content-wrapper">
 			<section class="content">
 
-
+				<div id="corps">
 
 				<!-- Your Page Content Here -->
-				<div id="corps" ng-include="incCtrl.template"></div>
-
+				<div ng-include="incCtrl.template"></div>
+				</div>
 			</section>
 		</div>
 
@@ -243,6 +232,7 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 			</strong> Tous droits réservés.
 		</footer>
 	</div>
+<script src="javaScript/include.js"></script>
 </body>
 
 

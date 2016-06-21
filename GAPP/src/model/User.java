@@ -218,6 +218,16 @@ implements Serializable {
 		User user = new User(idUser);
 		return user.extractStudent();
 	}
+	
+	public static Student getStudentByStudentId(long studentId) throws SQLException {
+		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM student NATURAL JOIN user WHERE student_id = ?");
+		p.setLong(1, studentId);
+		ResultSet resultSet = p.executeQuery();
+		resultSet.next();
+		long idUser = resultSet.getLong(1);
+		User user = new User(idUser);
+		return user.extractStudent();
+	}
 
 	public static User.Tutor getTutor(long idTutor) throws SQLException {
 		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_tutor = ?");
@@ -390,7 +400,7 @@ implements Serializable {
 
 		public GroupApp getGroupApp() throws SQLException {
 			long idGroupApp = this.getAttrLong("id_group_app");
-			return new GroupApp(idGroupApp);
+			return GroupApp.getGroupApp(idGroupApp);
 		}
 
 		public void setGroupApp(GroupApp groupApp) throws SQLException {
