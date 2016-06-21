@@ -18,7 +18,7 @@ extends Table {
     }
 
     public User.Responsible getResponsible() throws SQLException {
-        return User.getResponsible((long)this.getAttrLong("id_responsible"));
+        return User.getResponsible(this.getAttrLong("id_responsible"));
     }
 
     public void setResponsible(User.Responsible responsible) throws SQLException {
@@ -40,10 +40,10 @@ extends Table {
     
     public static List<KindOfApp> getKindOfApps() throws SQLException {
     	LinkedList<KindOfApp> kinds = new LinkedList<>();
-        PreparedStatement p = Utils.prepareStatement((String)"SELECT id_kind_of_app FROM kind_of_app");
+        PreparedStatement p = Utils.prepareStatement("SELECT id_kind_of_app FROM kind_of_app");
         ResultSet resultSet = p.executeQuery();
         while (resultSet.next()) {
-            kinds.add(new KindOfApp((long)resultSet.getLong(1)));
+            kinds.add(new KindOfApp(resultSet.getLong(1)));
         }
         resultSet.close();
         p.close();
