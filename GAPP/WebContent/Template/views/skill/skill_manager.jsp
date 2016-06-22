@@ -20,12 +20,25 @@
 					SkillGroup skillGroup = SkillGroup.getSkillGroup(id_skill_group);
 					
 					String description = request.getParameter("description");
+					String remove = request.getParameter("remove");
+					
 					if(description != null) {
 						Skill skill = Skill.addSkill(skillGroup, description);
 						request.getSession().setAttribute("redirect", "views/skill/skill_manager.jsp?id_skill_group="+id_skill_group);
 			    		response.sendRedirect("../../starter_admin.jsp");
+					} else if(remove != null) {
+						
+						request.getSession().setAttribute("redirect", "views/view_kind_of_app.jsp?id_kind_of_app=" + skillGroup.getKindOfApp().getId());
+						skillGroup.remove();
+			    		response.sendRedirect("../../starter_admin.jsp");
 					} else {
 					%>
+					
+					<form method="post" action="views/skill/skill_manager.jsp">
+							<input hidden type="text" value=" " name="remove">
+							<input type="text" hidden value="<%= id_skill_group %>" name="id_skill_group">
+							<input type="submit" class="btn btn-danger" value="Supprimer la famille de compétences">
+					</form>
 					
 					Type d'APP correspondant :
 					<a style="font-size:125%; color:#3c8dbc; font-weight:bold;" href="#" onclick="include_in_dynamic('views/view_kind_of_app.jsp?id_kind_of_app=<%= skillGroup.getKindOfApp().getId() %>')">

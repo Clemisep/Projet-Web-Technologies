@@ -1,5 +1,16 @@
 <%@ page import="java.util.List"%>
 <%@ page import="model.*"%>
+ <%
+ String remove = request.getParameter("remove");
+if(remove != null) {
+
+	long id_group_app = Long.parseLong(request.getParameter("id_group_app"));
+	GroupApp.getGroupApp(id_group_app).remove();
+	request.getSession().setAttribute("redirect", "views/group.jsp");
+	response.sendRedirect("../starter_admin.jsp");
+	
+} else {
+%>
 
 <h1>Voir groupe</h1>
 <div class="box">
@@ -25,7 +36,23 @@
 						request.getSession().setAttribute("redirect", "views/view_group.jsp?id_group="+id_group);
 			    		response.sendRedirect("../starter_admin.jsp");
 					} else {
-					
+						{
+						User user = User.getUser(((Long)session.getAttribute("id_user")).longValue());
+						User.Admin admin = user.extractAdmin();
+						if(admin != null) {
+				%>
+			<tr>	
+			<td>
+			<form method="post" action="views/view_group.jsp">
+				<input hidden type="text" value=" " name="remove">
+				<input type="text" hidden value="<%= groupApp.getId() %>" name="id_group_app">
+				<input type="submit" class="btn btn-danger" value="Supprimer le groupe">
+						</form>
+						</td>
+						</tr>
+						
+						<% }}
+						
 					User tutor = groupApp.getTutor().getUser();
 					%>
 
@@ -71,3 +98,4 @@
 				</div>
 			</div>
 		</div>
+		<% } %>

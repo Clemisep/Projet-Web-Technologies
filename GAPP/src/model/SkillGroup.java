@@ -68,4 +68,12 @@ extends Table {
     	}
     	return skillGroups;
     }
+    
+    @Override
+    public void remove() throws SQLException {
+    	for (Skill skill : getSkills()) {
+			skill.remove();
+		}
+    	super.remove();
+    }
 }

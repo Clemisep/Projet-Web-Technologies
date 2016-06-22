@@ -3,7 +3,11 @@ package model;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+
 import model.SkillGroup;
 import model.Table;
 import model.Utils;
@@ -17,8 +21,30 @@ implements Serializable {
         super("skill", idSkill);
     }
     
+    @Override
+    public void remove() throws SQLException {
+    	for (SkillInstance skillInstance : getSkillInstances()) {
+			skillInstance.remove();
+		}
+    	super.remove();
+    }
+    
     public static Skill getSkill(long idSkill) {
     	return new Skill(idSkill);
+    }
+    
+    public List<SkillInstance> getSkillInstances() throws SQLException {
+    	LinkedList<SkillInstance> skillInstances = new LinkedList<SkillInstance>();
+		try (PreparedStatement p =
+				Utils.prepareStatement((String)"SELECT id_skill_instance FROM skill_instance WHERE id_skill = ?")) {
+			p.setLong(1, getId());
+			try (ResultSet resultSet = p.executeQuery()) {
+				while (resultSet.next()) {
+					skillInstances.add(new SkillInstance(resultSet.getLong(1)));
+				}
+			}
+		}
+		return skillInstances;
     }
     
     public SkillGroup getSkillGroup() throws SQLException {
