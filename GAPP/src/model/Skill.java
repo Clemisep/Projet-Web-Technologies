@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import model.SkillGroup;
@@ -25,13 +26,16 @@ implements Serializable {
     }
 
     public static Skill addSkill(SkillGroup skillGroup, String description) throws SQLException {
-        PreparedStatement p = Utils.prepareStatementWithKey("INSERT INTO skill(id_skill_group, description) VALUES(?,?)");
-        p.setLong(1, skillGroup.getId());
-        p.setString(2, description);
-        p.executeUpdate();
-        Skill skill = new Skill(Utils.getKey((PreparedStatement)p));
-        p.close();
-		return skill;
+    	try(PreparedStatement p = Utils.prepareStatementWithKey("INSERT INTO skill(id_skill_group, description) VALUES(?,?)")) {
+    		try(Connection connection = p.getConnection()) {
+    			p.setLong(1, skillGroup.getId());
+    			p.setString(2, description);
+    			p.executeUpdate();
+    			Skill skill = new Skill(Utils.getKey((PreparedStatement)p));
+    			p.close();
+    			return skill;
+    		}
+    	}
     }
 
     public String getDescription() throws SQLException {

@@ -138,51 +138,61 @@ implements Serializable {
 		long key;
 		try (PreparedStatement p = Utils.prepareStatementWithKey(
 				(String)"INSERT INTO user(pseudo, first_name, last_name, birth_date, password) VALUES(?, ?, ?, ?, ?)")) {
-			p.setString(1, pseudo);
-			p.setString(2, firstName);
-			p.setString(3, lastName);
-			p.setDate(4, birthDate);
-			p.setString(5, CryptWithMD5.cryptWithMD5(password));
-			p.executeUpdate();
-			key = Utils.getKey((PreparedStatement)p);
+			try(Connection connection = p.getConnection()) {
+				p.setString(1, pseudo);
+				p.setString(2, firstName);
+				p.setString(3, lastName);
+				p.setDate(4, birthDate);
+				p.setString(5, CryptWithMD5.cryptWithMD5(password));
+				p.executeUpdate();
+				key = Utils.getKey((PreparedStatement)p);
+				return new User(key);
+			}
 		}
-		return new User(key);
 	}
 
 	public Student extractStudent() throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT is_student, id_student FROM user WHERE id_user = ?");
-		p.setLong(1, this.getId());
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		boolean isStudent = resultSet.getBoolean(1);
-		if (isStudent) {
-			long idStudent = resultSet.getLong(2);
-			return new Student(idStudent);
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT is_student, id_student FROM user WHERE id_user = ?")){
+			try(Connection connection = p.getConnection()){
+				p.setLong(1, this.getId());
+				ResultSet resultSet = p.executeQuery();
+				resultSet.next();
+				boolean isStudent = resultSet.getBoolean(1);
+				if (isStudent) {
+					long idStudent = resultSet.getLong(2);
+					return new Student(idStudent);
+				}
+			}
+			return null;
 		}
-		return null;
 	}
 
 	public Student becomeStudent(String studentId, long promo) throws SQLException {
 		assert (this.extractStudent() == null);
-		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO student(student_id, promo) VALUES(?,?)");
-		p.setString(1, studentId);
-		p.setLong(2, promo);
-		p.executeUpdate();
-		long idStudent = Utils.getKey((PreparedStatement)p);
-		this.setAttrLong("is_student", 1);
-		this.setAttrLong("id_student", idStudent);
-		p.close();
-		return new Student(idStudent);
+		try(PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO student(student_id, promo) VALUES(?,?)")){
+			try(Connection connection = p.getConnection()){
+				p.setString(1, studentId);
+				p.setLong(2, promo);
+				p.executeUpdate();
+				long idStudent = Utils.getKey((PreparedStatement)p);
+				this.setAttrLong("is_student", 1);
+				this.setAttrLong("id_student", idStudent);
+				return new Student(idStudent);
+			}
+		}
 	}
 	
 	public static List<User> getAllUsers() throws SQLException {
 		LinkedList<User> users = new LinkedList<>();
-		PreparedStatement p = Utils.prepareStatement("SELECT id_user FROM user");
-		ResultSet resultSet = p.executeQuery();
-		while(resultSet.next()) {
-			users.add(new User(resultSet.getLong(1)));
+		try(PreparedStatement p = Utils.prepareStatement("SELECT id_user FROM user")){
+			try(Connection connection = p.getConnection()){
+				ResultSet resultSet = p.executeQuery();
+				while(resultSet.next()) {
+					users.add(new User(resultSet.getLong(1)));
+				}
+			}
+			return users;
 		}
-		return users;
 	}
 	
 	public static List<Responsible> getAllResponsibles() throws SQLException {
@@ -214,117 +224,143 @@ implements Serializable {
 	
 
 	public static Student getStudent(long idStudent) throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_student = ?");
-		p.setLong(1, idStudent);
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		long idUser = resultSet.getLong(1);
-		User user = new User(idUser);
-		return user.extractStudent();
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_student = ?")){
+			try(Connection connection = p.getConnection()){
+				p.setLong(1, idStudent);
+				ResultSet resultSet = p.executeQuery();
+				resultSet.next();
+				long idUser = resultSet.getLong(1);
+				User user = new User(idUser);
+				return user.extractStudent();
+			}
+		}
 	}
 	
 	public static Student getStudentByStudentId(long studentId) throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM student NATURAL JOIN user WHERE student_id = ?");
-		p.setLong(1, studentId);
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		long idUser = resultSet.getLong(1);
-		User user = new User(idUser);
-		return user.extractStudent();
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM student NATURAL JOIN user WHERE student_id = ?")){
+			try(Connection connection = p.getConnection()){
+				p.setLong(1, studentId);
+				ResultSet resultSet = p.executeQuery();
+				resultSet.next();
+				long idUser = resultSet.getLong(1);
+				User user = new User(idUser);
+				return user.extractStudent();
+			}
+		}
 	}
 
 	public static User.Tutor getTutor(long idTutor) throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_tutor = ?");
-		p.setLong(1, idTutor);
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		long idUser = resultSet.getLong(1);
-		User user = new User(idUser);
-		return user.extractTutor();
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_tutor = ?")){
+			try(Connection connection = p.getConnection()){
+				p.setLong(1, idTutor);
+				ResultSet resultSet = p.executeQuery();
+				resultSet.next();
+				long idUser = resultSet.getLong(1);
+				User user = new User(idUser);
+				return user.extractTutor();
+			}
+		}
 	}
 	
 	public Admin extractAdmin() throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT is_admin, id_admin FROM user WHERE id_user = ?");
-		p.setLong(1, this.getId());
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		boolean isAdmin = resultSet.getBoolean(1);
-		if (isAdmin) {
-			long idStudent = resultSet.getLong(2);
-			return new Admin(idStudent);
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT is_admin, id_admin FROM user WHERE id_user = ?")){
+			try(Connection connection = p.getConnection()){
+				p.setLong(1, this.getId());
+				ResultSet resultSet = p.executeQuery();
+				resultSet.next();
+				boolean isAdmin = resultSet.getBoolean(1);
+				if (isAdmin) {
+					long idStudent = resultSet.getLong(2);
+					return new Admin(idStudent);
+				}
+			}
+			return null;
 		}
-		return null;
 	}
 
 	public Admin becomeAdmin() throws SQLException {
 		assert (this.extractAdmin() == null);
-		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO admin() VALUES()");
-		p.executeUpdate();
-		long idAdmin = Utils.getKey((PreparedStatement)p);
-		setAttrLong("is_admin", 1);
-		setAttrLong("id_admin", idAdmin);
-		p.close();
-		
-		return new Admin(idAdmin);
+		try(PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO admin() VALUES()")){
+			try(Connection connection = p.getConnection()) {
+				long idAdmin = Utils.getKey((PreparedStatement)p);
+				p.executeUpdate();
+				setAttrLong("is_admin", 1);
+				setAttrLong("id_admin", idAdmin);
+				return new Admin(idAdmin);
+			}
+		}
 	}
 
 	public static Responsible getResponsible(long idResponsible) throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_responsible = ?");
-		p.setLong(1, idResponsible);
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		long idUser = resultSet.getLong(1);
-		User user = new User(idUser);
-		return user.extractResponsible();
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT id_user FROM user WHERE id_responsible = ?")){
+		try(Connection connection = p.getConnection()){
+			p.setLong(1, idResponsible);
+			ResultSet resultSet = p.executeQuery();
+			resultSet.next();
+			long idUser = resultSet.getLong(1);
+			User user = new User(idUser);
+			return user.extractResponsible();
+		}
+	}
 	}
 
 	public Responsible extractResponsible() throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT is_responsible, id_responsible FROM user WHERE id_user = ?");
-		p.setLong(1, this.getId());
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		boolean isResponsible = resultSet.getBoolean(1);
-		if (isResponsible) {
-			long idResponsible = resultSet.getLong(2);
-			return new Responsible(idResponsible);
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT is_responsible, id_responsible FROM user WHERE id_user = ?")){
+			try(Connection connection = p.getConnection()){
+				p.setLong(1, this.getId());
+				ResultSet resultSet = p.executeQuery();
+				resultSet.next();
+				boolean isResponsible = resultSet.getBoolean(1);
+				if (isResponsible) {
+					long idResponsible = resultSet.getLong(2);
+					return new Responsible(idResponsible);
+				}
+			}
+			return null;
 		}
-		return null;
 	}
 
 	public Responsible becomeResponsible() throws SQLException {
 		assert (this.extractResponsible() == null);
-		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO responsible() VALUES()");
-		p.executeUpdate();
-		long idResponsible = Utils.getKey((PreparedStatement)p);
-		setAttrLong("is_responsible", 1);
-		setAttrLong("id_responsible", idResponsible);
-		p.close();
-		return new Responsible(idResponsible);
+		try(PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO responsible() VALUES()")){
+			try(Connection connection = p.getConnection()){
+				p.executeUpdate();
+				long idResponsible = Utils.getKey((PreparedStatement)p);
+				setAttrLong("is_responsible", 1);
+				setAttrLong("id_responsible", idResponsible);
+				return new Responsible(idResponsible);
+			}
+		}
 	}
 
 	public Tutor extractTutor() throws SQLException {
-		PreparedStatement p = Utils.prepareStatement((String)"SELECT is_tutor, id_tutor FROM user WHERE id_user = ?");
-		p.setLong(1, this.getId());
-		ResultSet resultSet = p.executeQuery();
-		resultSet.next();
-		boolean isTutor = resultSet.getBoolean(1);
-		if (isTutor) {
-			long idTutor = resultSet.getLong(2);
-			return new Tutor(idTutor);
+		try(PreparedStatement p = Utils.prepareStatement((String)"SELECT is_tutor, id_tutor FROM user WHERE id_user = ?")){
+			try(Connection connection = p.getConnection()){
+				p.setLong(1, this.getId());
+				ResultSet resultSet = p.executeQuery();
+				resultSet.next();
+				boolean isTutor = resultSet.getBoolean(1);
+				if (isTutor) {
+					long idTutor = resultSet.getLong(2);
+					return new Tutor(idTutor);
+				}
+			}
+			return null;
 		}
-		return null;
 	}
 
 	public Tutor becomeTutor() throws SQLException {
 		assert (this.extractTutor() == null);
-		PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO tutor() VALUES()");
-		p.executeUpdate();
-		long idTutor = Utils.getKey((PreparedStatement)p);
-		setAttrLong("is_tutor", 1);
-		setAttrLong("id_tutor", idTutor);
-		
-		p.close();
-		return new Tutor(idTutor);
+		try(PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO tutor() VALUES()")){
+			try(Connection connection = p.getConnection()){
+				p.executeUpdate();
+				long idTutor = Utils.getKey((PreparedStatement)p);
+				setAttrLong("is_tutor", 1);
+				setAttrLong("id_tutor", idTutor);
+
+				return new Tutor(idTutor);
+			}
+		}
 	}
 
 	public class Admin {
@@ -399,10 +435,13 @@ implements Serializable {
 		}
 
 		public void setStudentId(String studentId) throws SQLException {
-			PreparedStatement p = Utils.prepareStatement((String)"UPDATE student SET student_id = ? WHERE id_user = ?");
-			p.setString(1, studentId);
-			p.setLong(2, this.getId());
-			p.executeUpdate();
+			try(PreparedStatement p = Utils.prepareStatement((String)"UPDATE student SET student_id = ? WHERE id_user = ?")){
+				try(Connection connection = p.getConnection()){
+					p.setString(1, studentId);
+					p.setLong(2, this.getId());
+					p.executeUpdate();
+				}
+			}
 		}
 
 		public GroupApp getGroupApp() throws SQLException {

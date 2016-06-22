@@ -43,12 +43,14 @@ extends Table {
     	LinkedList<SkillGroup> skillGroups = new LinkedList<>();
     	try(PreparedStatement p = 
     			Utils.prepareStatement("SELECT id_skill_group FROM skill_group WHERE id_kind_of_app = ?")) {
+    		try(Connection connection = p.getConnection()){
     		p.setLong(1, getId());
 	    	try(ResultSet resultSet = p.executeQuery()) {
 		    	while(resultSet.next()) {
 		    		skillGroups.add(SkillGroup.getSkillGroup(resultSet.getLong(1)));
 		    	}
 	    	}
+    	}
     	}
     	return skillGroups;
     }
@@ -72,13 +74,15 @@ extends Table {
     	long key;
     	try (PreparedStatement p = Utils.prepareStatementWithKey(
 				(String)"INSERT INTO kind_of_app(id_responsible, name, description) VALUES(?, ?, ?)")) {
-			p.setLong(1, id_responsible);
+    		try(Connection connection = p.getConnection()){
+    		p.setLong(1, id_responsible);
 			p.setString(2, name);
 			p.setString(3, description);
 			p.executeUpdate();
 			key = Utils.getKey((PreparedStatement)p);
 			return new KindOfApp(key);
 		}
+    	}
     }
     
     public static KindOfApp addKindOfApp (String name, String description, User.Responsible responsible) throws SQLException{
