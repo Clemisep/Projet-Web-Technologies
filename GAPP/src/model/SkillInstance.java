@@ -28,9 +28,9 @@ extends Table {
     }
 
     public static SkillInstance addSkillInstance(User.Student student, Skill skill, long level) throws SQLException {
-        PreparedStatement p = Utils.prepareStatement((String)"INSERT INTO skill_instance(id_skill, id_student, level, tutor_comment, student_comment) VALUES(?,?,?,?,?)");
+        PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO skill_instance(id_skill, id_student, level, tutor_comment, student_comment) VALUES(?,?,?,?,?)");
         p.setLong(1, skill.getId());
-        p.setLong(1, student.getId());
+        p.setLong(2, student.getId());
         p.setLong(3, level);
         p.setString(4, "");
         p.setString(5, "");

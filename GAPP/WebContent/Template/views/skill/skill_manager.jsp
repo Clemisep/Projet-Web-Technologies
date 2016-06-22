@@ -28,7 +28,7 @@
 					%>
 					
 					Type d'APP correspondant :
-					<a href="#" onclick="include_in_dynamic('views/view_kind_of_app.jsp?id_kind_of_app=<%= skillGroup.getKindOfApp().getId() %>')">
+					<a style="font-size:125%; color:#3c8dbc; font-weight:bold;" href="#" onclick="include_in_dynamic('views/view_kind_of_app.jsp?id_kind_of_app=<%= skillGroup.getKindOfApp().getId() %>')">
 					<%= skillGroup.getKindOfApp().getDescription() %>
 					</a>
 					<br/>
@@ -56,6 +56,7 @@
                 <label>Nom : </label> <input type="text" id="description" name="description" >
                 <br>
                 <div >
+                <br>
                 <input type="submit" class="btn btn-danger" id="envoie">
                 </div>
               </form>

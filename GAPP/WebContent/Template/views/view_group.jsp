@@ -1,5 +1,5 @@
 <%@ page import="java.util.List"%>
-<%@ page import="model.*" %>
+<%@ page import="model.*"%>
 
 <h1>Voir groupe</h1>
 <div class="box">
@@ -28,44 +28,46 @@
 					
 					User tutor = groupApp.getTutor().getUser();
 					%>
-					
-					Type d'APP : <%= groupApp.getKindOfApp().getName() %><br/>
-					Tuteur : <%= tutor.getLastName() + " " + tutor.getFirstName() %><br/>
-					
-					<table id="table1" class="table table-bordered table-hover dataTable">
-    	<thead>
-    		<th>Numéro élève</th>
-    		<th>Nom</th>
-    		<th>Prénom</th>
-    	</thead>
-    	<tbody>
-    <%
+
+					Type d'APP :
+					<%= groupApp.getKindOfApp().getName() %><br /> Tuteur :
+					<%= tutor.getLastName() + " " + tutor.getFirstName() %><br />
+
+					<table id="table1"
+						class="table table-bordered table-hover dataTable">
+						<thead>
+							<th>Numéro élève</th>
+							<th>Nom</th>
+							<th>Prénom</th>
+						</thead>
+						<tbody>
+							<%
 	String param = "";
 	List<User.Student> students = groupApp.getStudents();
 	for(int i=0 ; i<students.size() ; i++) {
 		User user = students.get(i).getUser();%>
-    		<tr>
-    			<td><%= user.getId() %></td>
-    			<td><%= user.getLastName() %></td>
-    			<td><%= user.getFirstName() %></td>
-    		</tr>
-    		<% } %>
-    	</tbody>
-    </table>
-    
-    <h3 class="box-title">Ajouter un utilisateur</h3>
-            </div>
-            
-            <div class="box-body">
-            <form action="views/view_group.jsp" method="post" >
-              <input hidden type="number" id="id_group" name="id_group" value="<%= id_group %>">
-                <label>Numéro d'étudiant</label> <input type="number" id="student_id" name="student_id" >
-                <br>
-                <div >
-                <input type="submit" class="btn btn-danger" id="envoie">
-                </div>
-              </form>
+							<tr>
+								<td><%= user.getId() %></td>
+								<td><%= user.getLastName() %></td>
+								<td><%= user.getFirstName() %></td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
+
+					<h3 class="box-title">Ajouter un utilisateur</h3>
+				</div>
+
+				<div class="box-body">
+					<form action="views/view_group.jsp" method="post">
+						<input hidden type="number" id="id_group" name="id_group"
+							value="<%= id_group %>"> <label>Numéro d'étudiant</label>
+						<input type="number" id="student_id" name="student_id"> <br>
+						<div>
+							<br /> <input type="submit" class="btn btn-danger" id="envoie">
+						</div>
+					</form>
 					<% } %>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>

@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -20,14 +21,16 @@ Serializable {
     }
 
     public static GroupRemark addGroupRemark(GroupApp groupApp, String description) throws SQLException {
-        PreparedStatement p = Utils.prepareStatement((String)"INSERT INTO group_remark(id_group_app, remark, date)");
-        p.setLong(1, groupApp.getId());
-        p.setString(2, description);
-        p.setDate(3, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-        p.executeUpdate();
-        long key = Utils.getKey((PreparedStatement)p);
-        p.close();
-		return new GroupRemark(key);
+    	try(PreparedStatement p = Utils.prepareStatement((String)"INSERT INTO group_remark(id_group_app, remark, date)")) {
+    		try(Connection connection = p.getConnection()) {
+    			p.setLong(1, groupApp.getId());
+    			p.setString(2, description);
+    			p.setDate(3, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+    			p.executeUpdate();
+    			long key = Utils.getKey((PreparedStatement)p);
+    			return new GroupRemark(key);
+    		}
+    	}
     }
 
     public String getDescription() throws SQLException {
@@ -39,7 +42,7 @@ Serializable {
     }
 
     public GroupApp getGroupApp() throws SQLException {
-        return new GroupApp(this.getAttrLong("id_group_app"));
+        return GroupApp.getGroupApp(this.getAttrLong("id_group_app"));
     }
 
     public java.sql.Date getDate() throws SQLException {

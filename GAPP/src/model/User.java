@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -389,9 +390,12 @@ implements Serializable {
 		}
 
 		public String getStudentId() throws SQLException {
-			PreparedStatement p = Utils.prepareStatement((String)"SELECT student_id FROM student WHERE id_student = ?");
-			p.setLong(1, this.getId());
-			return Utils.execResult((PreparedStatement)p).getString(1);
+			try(PreparedStatement p = Utils.prepareStatement((String)"SELECT student_id FROM student WHERE id_student = ?")){
+				try(Connection connection = p.getConnection()){
+					p.setLong(1, this.getId());
+					return Utils.execResult((PreparedStatement)p).getString(1);
+				}
+			}
 		}
 
 		public void setStudentId(String studentId) throws SQLException {
@@ -402,8 +406,12 @@ implements Serializable {
 		}
 
 		public GroupApp getGroupApp() throws SQLException {
-			long idGroupApp = this.getAttrLong("id_group_app");
-			return GroupApp.getGroupApp(idGroupApp);
+			if(getAttrString("id_group_app") == null) {
+				return null;
+			} else {
+				long idGroupApp = this.getAttrLong("id_group_app");
+				return GroupApp.getGroupApp(idGroupApp);
+			}
 		}
 
 		public void setGroupApp(GroupApp groupApp) throws SQLException {
@@ -412,13 +420,16 @@ implements Serializable {
 
 		public List<SkillInstance> getSkillInstances() throws SQLException {
 			LinkedList<SkillInstance> skillInstances = new LinkedList<SkillInstance>();
-			PreparedStatement p = Utils.prepareStatement((String)"SELECT id_skill_instance FROM skill_instance WHERE id_student = ?");
-			p.setLong(1, this.getId());
-			ResultSet resultSet = p.executeQuery();
-			while (resultSet.next()) {
-				skillInstances.add(new SkillInstance(resultSet.getLong(1)));
+			try(PreparedStatement p = Utils.prepareStatement((String)"SELECT id_skill_instance FROM skill_instance WHERE id_student = ?")){
+				try(Connection connection = p.getConnection()){
+					p.setLong(1, this.getId());
+					ResultSet resultSet = p.executeQuery();
+					while (resultSet.next()) {
+						skillInstances.add(new SkillInstance(resultSet.getLong(1)));
+					}
+					return skillInstances;
+				}
 			}
-			return skillInstances;
 		}
 	}
 }

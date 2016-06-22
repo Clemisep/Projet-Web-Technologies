@@ -50,8 +50,7 @@
 <!--<script src="javaScript/skillManager.spec.js"></script>-->
 <!--<script src="javaScript/getStudent.spec.js"></script>-->
 <!-- Factories -->
-<script src="javaScript/register/comparePassword.factory.js"></script>
-<script src="javaScript/register/passwordValidator.factory.js"></script>
+
 <!--<script src="javaScript/getStudent.factory.spec.js"></script>-->
 
 </head>
@@ -176,22 +175,7 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 
 
 						</ul></li>
-					<li><a href="#"> <span>Compétences</span>
-					</a>
-
-						<ul class="treeview-menu">
-							<li><a href="#"
-								onclick="include_in_dynamic('views/skill/skill_manager.jsp')"> <i
-									class="fa fa-circle-o"></i> Famille de compétences
-							</a></li>
-							<li><a href="#"
-								onclick="include_in_dynamic('views/skill/skill_assigner.jsp')"> <i
-									class="fa fa-circle-o"></i> Compétences élèves
-							</a></li>
-							<li><a href="#" onclick="include_in('views/view_group.jsp?test=truc', 'corps')"> <i
-									class="fa fa-circle-o"></i> Test
-							</a></li>
-						</ul></li>
+					
 
 
 

@@ -19,6 +19,10 @@ implements Serializable {
     public static Skill getSkill(long idSkill) {
     	return new Skill(idSkill);
     }
+    
+    public SkillGroup getSkillGroup() throws SQLException {
+    	return SkillGroup.getSkillGroup(getAttrLong("id_skill_group"));
+    }
 
     public static Skill addSkill(SkillGroup skillGroup, String description) throws SQLException {
         PreparedStatement p = Utils.prepareStatementWithKey("INSERT INTO skill(id_skill_group, description) VALUES(?,?)");

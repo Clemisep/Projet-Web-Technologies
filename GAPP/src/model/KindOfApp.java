@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,14 +55,17 @@ extends Table {
     
     public static List<KindOfApp> getKindOfApps() throws SQLException {
     	LinkedList<KindOfApp> kinds = new LinkedList<>();
-        PreparedStatement p = Utils.prepareStatement("SELECT id_kind_of_app FROM kind_of_app");
-        ResultSet resultSet = p.executeQuery();
-        while (resultSet.next()) {
-            kinds.add(new KindOfApp(resultSet.getLong(1)));
-        }
-        resultSet.close();
-        p.close();
-        return kinds;
+    	try(PreparedStatement p = Utils.prepareStatement("SELECT id_kind_of_app FROM kind_of_app")){
+    		try(Connection connection = p.getConnection()){
+    			ResultSet resultSet = p.executeQuery();
+    			while (resultSet.next()) {
+    				kinds.add(new KindOfApp(resultSet.getLong(1)));
+    			}
+    			resultSet.close();
+    			p.close();
+    			return kinds;
+    		}
+    	}
     }
     
     public static KindOfApp addKindOfApp (String name, String description, long id_responsible) throws SQLException{
