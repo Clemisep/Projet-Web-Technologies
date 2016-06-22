@@ -1,10 +1,10 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.User" %>
+<%@ page import="model.*" %>
 <!DOCTYPE html>
 <html>
 
 <body>
-    <h1>Élèves</h1>
+    <h1>Utilisateurs</h1>
 <div class="box">
         <!-- /.box-header -->
         <div class="box-body">
@@ -21,18 +21,17 @@
         
     <table id="table1" class="table table-bordered table-hover dataTable">
     	<thead>
-    		<th>Numéro étudiant</th>
+    		<th>Pseudo</th>
     		<th>Nom</th>
     		<th>Prénom</th>
     	</thead>
     	<tbody>
     <%
 	String param = "";
-	List<User.Student> students = User.findStudents(param);
-	for(int i=0 ; i<students.size() ; i++) {
-		User user = students.get(i).getUser();%>
+	List<User> users = User.getAllUsers();
+	for(User user : users) { %>
     		<tr style="cursor:pointer" onclick="include_in_dynamic('views/profile.jsp?id_user=<%= user.getId() %>')">
-    			<td><%= students.get(i).getStudentId() %></td>
+    			<td><%= user.getPseudo() %></td>
     			<td><%= user.getLastName() %></td>
     			<td><%= user.getFirstName() %></td>
     		</tr>

@@ -149,15 +149,15 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 				<!-- Sidebar Menu -->
 				<ul class="sidebar-menu">
 					<li class="header">Menu</li>
-					<!-- Optionally, you can add icons to the links -->
-					<li><a href="#" onclick="include_in_dynamic('views/student.jsp')"> <span>Élèves</span>
-					</a></li>
-
-
 					<%
                     if(pseudo != null) {
                     User user = User.findUser((String)pseudo);
                     if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResponsible() != null ) { %>
+					<!-- Optionally, you can add icons to the links -->
+					<li><a href="#" onclick="include_in_dynamic('views/student.jsp')"> <span>Élèves</span></a></li>
+					<li><a href="#" onclick="include_in_dynamic('views/user.jsp')"> <span>Utilisateurs</span></a></li>
+
+
                     
 					<li><a href="#"> <span> APP et Groupes</span>
 					</a>
@@ -170,8 +170,13 @@ if(user.extractAdmin() != null || user.extractTutor()!= null || user.extractResp
 							<li><a href="#" onclick="include_in_dynamic('views/group.jsp')"> <i
 									class="fa fa-circle-o"></i> Gestion des groupes
 							</a></li>
+							
+							<% if(user.extractTutor() != null) { %>
+							<li><a href="#" onclick="include_in_dynamic('views/my_groups.jsp')"> <i
+									class="fa fa-circle-o"></i> Mes groupes
+							</a></li>
 
-							<% }} %>
+							<% }}} %>
 
 
 						</ul></li>

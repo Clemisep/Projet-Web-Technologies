@@ -95,7 +95,7 @@ implements Serializable {
     	try(PreparedStatement p = Utils.prepareStatement("DELETE FROM " + this.tableName + " WHERE id_" + this.tableName + " = ?")){
     		try(Connection connection = p.getConnection()){
     			p.setLong(1, this.id);
-    			p.executeQuery();
+    			p.executeUpdate();
     		}
     	}
     }

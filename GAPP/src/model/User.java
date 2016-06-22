@@ -13,6 +13,9 @@ import java.util.List;
 import model.Table;
 import model.User;
 import model.Utils;
+import model.User.Admin;
+import model.User.Responsible;
+import model.User.Student;
 
 public class User
 extends Table
@@ -54,6 +57,10 @@ implements Serializable {
 			}
 		}
 		return user;
+	}
+	
+	public String getPseudo() throws SQLException {
+		return getAttrString("pseudo");
 	}
 
 	public static List<Student> findStudents(String start) throws SQLException {
@@ -282,8 +289,8 @@ implements Serializable {
 		assert (this.extractAdmin() == null);
 		try(PreparedStatement p = Utils.prepareStatementWithKey((String)"INSERT INTO admin() VALUES()")){
 			try(Connection connection = p.getConnection()) {
-				long idAdmin = Utils.getKey((PreparedStatement)p);
 				p.executeUpdate();
+				long idAdmin = Utils.getKey((PreparedStatement)p);
 				setAttrLong("is_admin", 1);
 				setAttrLong("id_admin", idAdmin);
 				return new Admin(idAdmin);
@@ -362,54 +369,72 @@ implements Serializable {
 			}
 		}
 	}
+	
+	@Override
+	public void remove() throws SQLException {
+		Admin admin = extractAdmin();
+		if(admin != null) admin.remove();
+		Tutor tutor = extractTutor();
+		if(tutor != null) tutor.remove();
+		Responsible responsible = extractResponsible();
+		if(responsible != null) responsible.remove();
+		Student student = extractStudent();
+		if(student != null) student.remove();
+		super.remove();
+	}
 
-	public class Admin {
-		private long idAdmin;
+	public class Admin extends Table {
+		
+		private static final long serialVersionUID = 1L;
 
 		private Admin(long idAdmin) {
-			this.idAdmin = idAdmin;
+			super("admin", idAdmin);
 		}
 
 		public User getUser() {
 			return User.this;
 		}
-
-		public long getId() {
-			return this.idAdmin;
-		}
 	}
 
-	public class Responsible {
-		private long idResponsible;
+	public class Responsible extends Table {
+
+		private static final long serialVersionUID = 1L;
 
 		private Responsible(long idResponsible) {
-			this.idResponsible = idResponsible;
+			super("responsible", idResponsible);
 		}
 
 		public User getUser() {
 			return User.this;
-		}
-
-		public long getId() {
-			return this.idResponsible;
 		}
 	}
 
 
 
-	public class Tutor {
-		private long idTutor;
+	public class Tutor extends Table {
+		
+		private static final long serialVersionUID = 1L;
 
 		private Tutor(long idTutor) {
-			this.idTutor = idTutor;
+			super("tutor", idTutor);
 		}
 
 		public User getUser() {
 			return User.this;
 		}
-
-		public long getId() {
-			return this.idTutor;
+		
+		public List<GroupApp> getMyGroups() throws SQLException {
+			LinkedList<GroupApp> groups = new LinkedList<GroupApp>();
+			try (PreparedStatement p =
+					Utils.prepareStatement((String)"SELECT id_group_app FROM group_app WHERE id_tutor = ?")) {
+				p.setLong(1, getId());
+				try (ResultSet resultSet = p.executeQuery()) {
+					while (resultSet.next()) {
+						groups.add(GroupApp.getGroupApp(resultSet.getLong(1)));
+					}
+				}
+			}
+			return groups;
 		}
 	}
 

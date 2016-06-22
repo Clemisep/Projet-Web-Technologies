@@ -53,11 +53,13 @@ public class Connection extends HttpServlet {
 				session.setAttribute("id_user", user.getId());
 				session.setAttribute("pseudo", pseudo);
 				session.setAttribute("password", password);
+				 request.getSession().setAttribute("redirect", "views/profile.jsp?id_user=" + user.getId());
 				 response.sendRedirect("Template/starter_admin.jsp");
 				
 				
 			} else {
-				 response.sendRedirect("Template/login.jsp");
+				 response.sendRedirect("Template/login.jsp?");
+				 
 			
 			}
 			
