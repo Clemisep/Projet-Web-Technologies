@@ -1,61 +1,68 @@
-<!DOCTYPE html>
-<html>
+<%@ page import="java.util.List"%>
+<%@ page import="model.*" %>
 
-<body>
-    <h1>Compétences</h1>
-    <br>
-    <br>
-    <div>
-        <div class="box">
-            <!-- /.box-header -->
+<h1>Famille de compétences</h1>
+<div class="box">
+	<!-- /.box-header -->
+	<div class="box-body">
+		<div id="example2_wrapper"
+			class="dataTables_wrapper form-inline dt-bootstrap">
+			<div class="row">
+				<div class="col-sm-6"></div>
+				<div class="col-sm-6"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+				
+					<%
+					System.out.println(request.getParameter("id_skill_group"));
+					long id_skill_group = Long.parseLong(request.getParameter("id_skill_group"));
+					SkillGroup skillGroup = SkillGroup.getSkillGroup(id_skill_group);
+					
+					String description = request.getParameter("description");
+					if(description != null) {
+						Skill skill = Skill.addSkill(skillGroup, description);
+						request.getSession().setAttribute("redirect", "views/skill/skill_manager.jsp?id_skill_group="+id_skill_group);
+			    		response.sendRedirect("../../starter_admin.jsp");
+					} else {
+					%>
+					
+					Type d'APP correspondant :
+					<a href="#" onclick="include_in_dynamic('views/view_kind_of_app.jsp?id_kind_of_app=<%= skillGroup.getKindOfApp().getId() %>')">
+					<%= skillGroup.getKindOfApp().getDescription() %>
+					</a>
+					<br/>
+					Famille : <%= skillGroup.getDescription() %>					
+					
+					<table id="table1" class="table table-bordered table-hover dataTable">
+		    	<thead>
+		    		<th>Compétences</th>
+		    	</thead>
+		    	<tbody>
+		    <%
+		    for(Skill skill : skillGroup.getSkills()) { %>
+		    		<tr>
+		    			<td><%= skill.getDescription() %></td>
+		    		</tr>
+		    		<% } %>
+		    	</tbody>
+		    </table>
+    
+    <h3 class="box-title">Ajouter une compétence</h3>
+            
             <div class="box-body">
-                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                        <div class="col-sm-6"></div>
-                        <div class="col-sm-6"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                                <thead>
-                                    <tr role="row">
-                                        <th tabindex="0"><input type="checkbox" /></th>
-                                        <th class="sorting_asc" tabindex="1" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="skill: activate to sort column descending">Compétence</th>
-                                        <th class="sorting_asc" tabindex="2" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="subSkill: activate to sort column descending">Sous-compétence</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Dynamic data display -->
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <form action="views/skill/skill_manager.jsp" method="post" >
+              <input hidden type="number" id="id_skill_group" name="id_skill_group" value="<%= id_skill_group %>">
+                <label>Nom : </label> <input type="text" id="description" name="description" >
+                <br>
+                <div >
+                <input type="submit" class="btn btn-danger" id="envoie">
                 </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <div ng-show="skmCtrl.show" class="box box-primary">
-            <br>
-            <form>
-                <label>Nouvelle compétence : </label>
-                <input type="text" ng-model="skmCtrl.skillInput">
-                <br><br>
-                <label>Nouvelle sous-compétence : </label>
-                <input type="text" ng-model="skmCtrl.subSkillInput">
-                <br><br>
-                <input type="button" class="btn btn-sm btn-info btn-flat pull-left" value="Ajouter une sous-compétence" ng-click="skmCtrl.addSubSkill()"/>
-                <br><br>
-            </form>
-        </div>
-
-        <div><a href="" class="btn btn-sm btn-info btn-flat pull-left">Modifier compétence</a></div>
-       
-    </div>
-</body>
-
-</html>
+              </form>
+					<% } %>
+		</div>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>

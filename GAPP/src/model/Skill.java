@@ -25,8 +25,9 @@ implements Serializable {
         p.setLong(1, skillGroup.getId());
         p.setString(2, description);
         p.executeUpdate();
+        Skill skill = new Skill(Utils.getKey((PreparedStatement)p));
         p.close();
-        return new Skill(Utils.getKey((PreparedStatement)p));
+		return skill;
     }
 
     public String getDescription() throws SQLException {

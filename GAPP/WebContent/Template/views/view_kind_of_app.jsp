@@ -1,7 +1,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="model.*" %>
 
-<h1>Voir groupe</h1>
+<h1>Type d'APP</h1>
 <div class="box">
 	<!-- /.box-header -->
 	<div class="box-body">
@@ -13,7 +13,6 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-				Type d'APP
 				
 					<% // GET parameter : id_kind_of_app
 					
@@ -33,13 +32,20 @@
 					Description : <%= kindOfApp.getDescription() %><br/>
 					Responsable : <%= responsible.getLastName() + " " + responsible.getFirstName() %>
 					
-					<br/>
 					
-					<% for(SkillGroup skillGroup : kindOfApp.getSkillGroups()) { %>
-					
-					Nom : <%= skillGroup.getDescription() %>
-					
-					<% } %>
+					<table id="table1" class="table table-bordered table-hover dataTable">
+		    	<thead>
+		    		<th>Familles de compétences</th>
+		    	</thead>
+		    	<tbody>
+		    <%
+		    for(SkillGroup skillGroup : kindOfApp.getSkillGroups()) { %>
+		    		<tr style="cursor:pointer" onclick="include_in_dynamic('views/skill/skill_manager.jsp?id_skill_group=<%= skillGroup.getId() %>')">
+		    			<td><%= skillGroup.getDescription() %></td>
+		    		</tr>
+		    		<% } %>
+		    	</tbody>
+		    </table>
     
     <h3 class="box-title">Ajouter une famille de compétences</h3>
             

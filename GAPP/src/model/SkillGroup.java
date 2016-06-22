@@ -14,12 +14,20 @@ public class SkillGroup
 extends Table {
     private static final long serialVersionUID = 54922831052286921L;
 
-    public SkillGroup(long id) {
+    private SkillGroup(long id) {
         super("skill_group", id);
+    }
+    
+    public static SkillGroup getSkillGroup(long id) {
+    	return new SkillGroup(id);
     }
     
     public String getDescription() throws SQLException {
     	return getAttrString("description");
+    }
+    
+    public KindOfApp getKindOfApp() throws SQLException {
+    	return KindOfApp.getKindOfApp(getAttrLong("id_kind_of_app"));
     }
 
     public static SkillGroup addSkillGroup(String name, KindOfApp kindOfApp) throws SQLException {

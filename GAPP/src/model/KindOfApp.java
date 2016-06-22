@@ -45,7 +45,7 @@ extends Table {
     		p.setLong(1, getId());
 	    	try(ResultSet resultSet = p.executeQuery()) {
 		    	while(resultSet.next()) {
-		    		skillGroups.add(new SkillGroup(resultSet.getLong(1)));
+		    		skillGroups.add(SkillGroup.getSkillGroup(resultSet.getLong(1)));
 		    	}
 	    	}
     	}
